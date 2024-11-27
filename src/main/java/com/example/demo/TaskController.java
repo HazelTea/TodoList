@@ -1,16 +1,25 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class TaskController {
+    Task[] taskList = {};
 
     @GetMapping("/test")
-    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-            Model model) {
+    public String testerFunction() {
         return "testing...";
+    }
+
+    @GetMapping("/getTasks")
+    public Task[] getTasks() {
+        return taskList;
+    }
+
+    @GetMapping("/listTasks")
+    public void listTasks() {
+        System.out.println(taskList.toString());
     }
 }

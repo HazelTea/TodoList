@@ -1,0 +1,83 @@
+/* body {
+    background-color: #B4FFD5;
+}
+
+.frame {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .frame .overlap-group-wrapper {
+    overflow-x: hidden;
+    width: 967px;
+    height: 870px;
+  }
+  
+  .frame .overlap-group {
+    position: relative;
+    width: 978px;
+    height: 881px;
+    background-image: url(https://c.animaapp.com/2JYi3Lm4/img/rectangle-1.svg);
+    background-size: 100% 100%;
+  }
+  
+  .frame .text-wrapper {
+    position: absolute;
+    width: 411px;
+    height: 30px;
+    top: 25px;
+    left: 229px;
+    transform: rotate(0.06deg);
+    font-family: "Ek Mukta-Bold", Helvetica;
+    font-weight: 700;
+    color: #16db65;
+    font-size: 50px;
+    letter-spacing: 2.50px;
+    line-height: 0.1px;
+  }
+  
+  .frame .overlap {
+    position: absolute;
+    width: 197px;
+    height: 842px;
+    top: 10px;
+    left: 11px;
+  }
+  
+  .frame .rectangle {
+    position: absolute;
+    width: 197px;
+    height: 842px;
+    top: 0;
+    left: 0;
+    background-color: #343434;
+    border-radius: 15px;
+    transform: rotate(0.06deg);
+  }
+  
+  .frame .div {
+    position: absolute;
+    width: 180px;
+    height: 49px;
+    top: 6px;
+    left: 17px;
+    transform: rotate(0.06deg);
+    font-family: "Ek Mukta-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #16db65;
+    font-size: 25px;
+    letter-spacing: 0;
+    line-height: 0.1px;
+  }
+  
+  .frame .polygon {
+    position: absolute;
+    width: 13px;
+    height: 14px;
+    top: 24px;
+    left: 162px;
+  }
+   */
