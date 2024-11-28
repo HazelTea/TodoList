@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.yaml.snakeyaml.events.Event.ID;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.aspectj.apache.bcel.classfile.Unknown;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
@@ -23,7 +27,6 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public @ResponseBody Iterable<Task> getTasks() {
-        // Statement st = con.createStatement();
         return taskList.findAll();
     }
 
@@ -43,13 +46,12 @@ public class TaskController {
         System.out.println(taskList.toString());
     }
 
-    // @GetMapping("/tasks/{id}")
-    // public Task getTaskById(@PathVariable("id") Long id) {
-    // Task chosenTask = null;
-    // }
-    // }
-    // return chosenTask;
-    // }
+    @GetMapping("/tasks/{id}")
+    public Task getTaskById(@PathVariable("id") Integer id) {
+        System.out.println(taskList.findById(id).orElseThrow());
+        return taskList.findById(id).orElseThrow();
+
+    }
 
     // @DeleteMapping("/tasks/{id}")
     // public TaskList removeTask(@PathVariable("id") Long id) {
