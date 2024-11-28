@@ -1,1 +1,1 @@
-This will be empty for the time being.
+This is the java only version. SQL hasn't been integrated yet.
