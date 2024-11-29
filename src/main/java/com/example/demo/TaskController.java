@@ -1,18 +1,15 @@
 package com.example.demo;
 
-import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.yaml.snakeyaml.events.Event.ID;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.aspectj.apache.bcel.classfile.Unknown;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
@@ -34,9 +31,11 @@ public class TaskController {
     public @ResponseBody String addTask(@RequestParam Map<String, String> params) {
         String title = params.get("title");
         String description = params.get("description");
+        String deadline = params.get("deadline");
         Task newTask = new Task();
         newTask.setTitle(title);
         newTask.setDescription(description);
+        newTask.setDeadline(deadline);
         taskList.save(newTask);
         return "Saved";
     }
@@ -47,25 +46,42 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    public Task getTaskById(@PathVariable("id") Integer id) {
-        System.out.println(taskList.findById(id).orElseThrow());
+    public @ResponseBody Task getTaskById(@PathVariable("id") Integer id) {
         return taskList.findById(id).orElseThrow();
 
     }
 
-    // @DeleteMapping("/tasks/{id}")
-    // public TaskList removeTask(@PathVariable("id") Long id) {
-    // int currentIndex = 0;
-    // Task[] newTaskList = new Task[taskList.length - 1];
-    // for (int i = 0; i < taskList.length; i++) {
-    // Task task = taskList[i];
-    // if (task.id() != id) {
-    // newTaskList[currentIndex] = task;
-    // currentIndex++;
-    // }
-    // }
-    // taskList = newTaskList;
-    // return taskList;
+    @DeleteMapping("/tasks/{id}")
+    public @ResponseBody Iterable<Task> removeTask(@PathVariable("id") Integer id) {
+        taskList.deleteById(id);
+        return taskList.findAll();
 
-    // }
+    }
+
+    @PatchMapping("/tasks/{id}/edit")
+    public @ResponseBody Iterable<Task> editTask(@PathVariable("id") Integer id,
+            @RequestParam Map<String, String> params) {
+        Task task = getTaskById(id);
+        String[] keyArray = params.keySet().toArray(String[]::new);
+        String[] valueArray = params.values().toArray(String[]::new);
+        for (int i = 0; i < params.size(); i++) {
+            switch (keyArray[i]) {
+                case "title":
+                    System.out.println("ballllll " + valueArray[i]);
+                    task.setTitle(valueArray[i]);
+                    break;
+                case "description":
+                    task.setDescription(valueArray[i]);
+                    break;
+                case "deadline":
+                    task.setDeadline(valueArray[i]);
+                    break;
+
+                default:
+                    System.err.println("Invalid attribute.");
+                    break;
+            }
+        }
+        return taskList.findAll();
+    }
 }

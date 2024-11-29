@@ -17,6 +17,8 @@ public class Task {
 
     private String description;
 
+    private String deadline;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 }

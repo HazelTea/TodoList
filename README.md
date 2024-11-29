@@ -1,1 +1,1 @@
-This is the java only version. SQL hasn't been integrated yet. Strictly Backend
+Currently back-end only, uses docker as the main database container.
