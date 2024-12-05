@@ -53,7 +53,12 @@ public class TaskController {
 
     @DeleteMapping("/tasks/{id}")
     public @ResponseBody Iterable<Task> removeTask(@PathVariable("id") Integer id) {
-        taskList.deleteById(id);
+        try {
+            taskList.deleteById(id);
+
+        } catch (Exception e) {
+            System.out.println("No task with a matching id of: " + id.toString() + " was found!");
+        }
         return taskList.findAll();
 
     }
