@@ -19,6 +19,8 @@ public class Task {
 
     private String deadline;
 
+    private Boolean finished;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class Task {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    public boolean getFinishedStatus() {
+        return finished;
+    }
+
+    public void setFinishedStatus(Boolean status) {
+        this.finished = status;
     }
 }

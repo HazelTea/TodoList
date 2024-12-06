@@ -3,20 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js"></script>
   </head>
   <body>
+    <template id="taskTemplate">
+      <div name="frame" class="taskFrame">
+        <p name="title" class="taskTemplate_title">LOREM IPSUM</p>
+        <div class="taskTemplate_titleLine"></div>
+        <div name="description" class="taskTemplate_description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
+        <div name="deadline" class="taskTemplate_date"> 01/01/1970</div>
+        <center><div class="taskTemplate_dateLine"></div></center>
+      </div>
+    </template>    
       <div class="background">
         <div class="menuTab">
           <p class="menuTitle">Menu</p>
-          <svg class="menuButton" width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13.6679 4.9339C15.6392 5.81768 15.6353 8.6177 13.6616 9.49822L4.46326 13.6019C2.80845 14.3402 0.943257 13.1285 0.945754 11.3168L0.957087 3.09427C0.959585 1.28262 2.82811 0.0740244 4.48089 0.815022L13.6679 4.9339Z" fill="#D2D2D2"/>
-            </svg> 
-                        
-             </button>
-        </div>
-        <p class="taskTitle"> Sticky Notes</p>
-        <div class="taskContainer"></div>
       </div>
+      <p class="taskTitle"> Sticky Notes</p>
+      <div id="TaskContainer" class="taskContainer"></div>
+      <div id="taskCounter" class="taskCounter">0</div>
+      <script src="index.js"></script>
   </body>
 </html>

@@ -1,7 +1,15 @@
 @font-face {
-  font-family: 'Ek Mukta';
-  src: url(fonts/ek-mukta/EkMukta-ExtraBold.ttf);
+  font-family: 'Ek Mukta ExtraBold';
+  src: 
+  url(fonts/ek-mukta/EkMukta-ExtraBold.ttf),
 }
+
+@font-face {
+  font-family: 'Ek Mukta Medium';
+  src: 
+  url(fonts/ek-mukta/EkMukta-Medium.ttf),
+}
+
 
 body {
   background-color: #CACACA;
@@ -47,7 +55,7 @@ height: 14px;
 left: 12.93px;
 top: 5px;
 
-font-family: 'Ek Mukta';
+font-family: 'Ek Mukta ExtraBold';
 font-style: normal;
 font-weight: 800;
 font-size: 25px;
@@ -76,7 +84,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   position: absolute;
   width: 300px;
 
-  font-family: 'Ek Mukta';
+  font-family: 'Ek Mukta ExtraBold';
   font-style: normal;
   font-weight: 700;
   font-size: 45px;
@@ -94,14 +102,148 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 .taskContainer {
 
   position: absolute;
-  width: 700px;
-  height: 640px;
-  left: 239px;
+  width: 640px;
+  height: 550px;
+  left: 250px;
   bottom: 14px;
-  /* border-radius: 15px;
-  border-color: #F4F4F4;
-  border-width: 5px;
-  border-style: solid; */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+  gap: 20px;
 
 }
 
+.taskFrame {
+  /* TaskTemplate */
+  flex: auto;
+  position:static;
+  width: 200px;
+  height: 220px;
+  left: 8px;
+  top: 7px;
+  flex: 0 0 auto;
+  background: #FB773C;
+  border-radius: 15px;
+
+}
+
+.taskTemplate_title {
+  /* TaskTitle */
+
+  position: relative;
+  width: 200px;
+  height: 20px;
+  left: 0px;
+  top: 12.5px;
+
+  font-family: 'Ek Mukta ExtraBold';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 0px;
+  /* or 0% */
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  color: #FFFFFF;
+
+
+}
+
+.taskTemplate_titleLine {
+  /* TitleLine */
+
+  position: static;
+  width: 200px;
+  height: 0px;
+  left: 0px;
+  top: 65px;
+  align-self: center;
+
+  border: 1px solid #FFFFFF;
+
+}
+
+.taskTemplate_description {
+  /* TaskDescription */
+
+  position:relative;
+  width: 180px;
+  height: 67px;
+  left: 10px;
+  top: 10px;
+
+  font-family: 'Ek Mukta Medium';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  /* or 100% */
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  color: #FFFFFF;
+
+
+}
+
+
+.taskTemplate_date {
+  /* TaskDate */
+
+  position: relative;
+  width: 200px;
+  height: 15px;
+  left: 0px;
+  top: 20px;
+
+  font-family: 'Ek Mukta Medium';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  /* identical to box height, or 100% */
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  color: #FFFFFF;
+
+}
+
+.taskTemplate_dateLine {
+  /* DateLine */
+
+  position: relative;
+  width: 65px;
+  height: 0px;
+  top: 30px;
+  
+
+  border: 1px solid #FFFFFF;
+
+}
+
+.taskCounter {
+
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 530px;
+  top: 31.72px;
+
+  font-family: 'Ek Mukta ExtraBold';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 15px;
+  /* or 60% */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  color: #EB3678;
+
+
+}

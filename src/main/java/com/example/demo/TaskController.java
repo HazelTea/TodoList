@@ -36,6 +36,7 @@ public class TaskController {
         newTask.setTitle(title);
         newTask.setDescription(description);
         newTask.setDeadline(deadline);
+        newTask.setFinishedStatus(false);
         taskList.save(newTask);
         return "Saved";
     }
