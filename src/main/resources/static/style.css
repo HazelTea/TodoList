@@ -42,6 +42,7 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: -9999;
+  transition: all 0.25s;
 }
 
 .menuTab {
@@ -156,6 +157,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 .taskContainer > *:hover {
   filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg);
+  box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.5);
   scale: 1.05;
 }
 
@@ -284,8 +286,8 @@ border-style: none;
 
 }
 
-.taskFormBlur {   
-  filter: blur(5px);
+.taskFormBlur {
+  filter: blur(5px) brightness(0.3);
   margin:0;
   padding:0;
   pointer-events: none;
@@ -298,9 +300,10 @@ border-style: none;
 
   background: #F5F5F5;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  top:40%;
+  top:50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  border-radius: 4px;
 }
 
 .taskCreator_title {
@@ -316,7 +319,7 @@ border-style: none;
   line-height: 0px;
   /* identical to box height, or 0% */
   text-align: center;
-  letter-spacing: 0.15em;
+  letter-spacing: 0em;
 
   color: #222222;
 
@@ -512,6 +515,7 @@ flex-grow: 1;
   height: 39px;
   left: 268px;
   top: 285px;
+  cursor:pointer;
 
   background: #5F5F5F;
   border: 1px solid #A6A6A6;

@@ -17,7 +17,7 @@
 
     <template id="creatorTemplate">
       <div class="taskCreator">
-        <button class="taskCreatorExitButton">
+        <button onclick="leaveTaskCreator(this)" class="taskCreatorExitButton">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="1.29289" y1="10.4313" x2="10.4313" y2="1.2929" stroke="#A9A9A9" stroke-width="2"/>
             <line x1="1.70711" y1="1.29289" x2="10.8455" y2="10.4313" stroke="#A9A9A9" stroke-width="2"/>
@@ -29,24 +29,24 @@
   
           <div class="taskCreator_titleFrame">
             <span class="taskCreator_frameName">TITLE</span>
-            <input type="text" name="taskTitle" placeholder="Task Title" style="border-style:none" class="taskCreator_inputFrame">
+            <input type="text" name="title" placeholder="Task Title" style="border-style:none" class="taskCreator_inputFrame">
           </div>
   
           <div class="taskCreator_descFrame">
             <span class="taskCreator_frameName">DESCRIPTION</span>
-            <input type="text" name="taskDescription" placeholder="Task Description" style="border-style:none" class="taskCreator_inputFrame">
+            <input type="text" name="desc" placeholder="Task Description" style="border-style:none" class="taskCreator_inputFrame">
           </div>
   
           <div class="taskCreator_deadlineTitle">DEADLINE</div>
   
           <div class="taskCreator_deadlineFrame">
-            <input type="text" name="deadlineYear" placeholder="YY" class="taskCreator_deadlineElement"></input>
-            <input type="text" name="deadlineMonth" placeholder="MM" class="taskCreator_deadlineElement"></input>
-            <input type="text" name="deadlineDay" placeholder="DD" class="taskCreator_deadlineElement"></input>
-            <input type="text" name="deadlineHour" placeholder="HH" class="taskCreator_deadlineElement"></input>
-            <input type="text" name="deadlineMinute" placeholder="mm" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="year" placeholder="YY" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="month" placeholder="MM" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="day" placeholder="DD" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="hour" placeholder="HH" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="minute" placeholder="mm" class="taskCreator_deadlineElement"></input>
           </div>
-          <input type="submit" name="submitter" class="taskCreator_saveButton" value="SAVE">
+          <input onclick="taskCreatorSave(this)" type="button" name="submitter" class="taskCreator_saveButton" value="SAVE">
   
         </form>
       </div>
