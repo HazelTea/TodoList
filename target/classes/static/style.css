@@ -1,3 +1,7 @@
+html * {
+  -webkit-font-smoothing: antialiased !important;
+}
+
 
 @font-face {
   font-family: 'Ek Mukta ExtraBold';
@@ -11,12 +15,19 @@
   url(fonts/ek-mukta/EkMukta-Medium.ttf),
 }
 
+@font-face {
+  font-family: 'Ek Mukta Light';
+  src: 
+  url(fonts/ek-mukta/EkMukta-Light.ttf),
+}
+
 
 body {
   background-color: #CACACA;
   margin:0;
   padding:0;
 }
+
 
 .background {
   position:fixed;
@@ -80,7 +91,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 }
 
-.taskTitle {
+.pageTitle {
 
   position: relative;
   width: 300px;
@@ -124,9 +135,11 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 .taskContainer {
 
   position: absolute;
-  width: 700px;
+  width: 720px;
   height: 550px;
-  left: 250px;
+  padding-top: 50px;
+  padding-left:50px;
+  left: 200px;
   bottom: 40px;
   display: flex;
   flex-flow: row wrap;
@@ -134,6 +147,16 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   gap: 20px;
   overflow-y: scroll;
 
+}
+
+.taskContainer > * {
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.taskContainer > *:hover {
+  filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg);
+  scale: 1.05;
 }
 
 .taskFrame {
@@ -235,6 +258,290 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   
 
   border: 1px solid #FFFFFF;
+
+}
+
+.taskAddButton {
+
+flex: auto;
+position:static;
+width: 200px;
+height: 220px;
+left: 8px;
+top: 7px;
+flex: 0 0 auto;
+opacity: 0.35;
+background: linear-gradient(219.57deg, #B3B3B3 50%, #4D4D4D 100%);
+border-radius: 15px;
+transition: all 0.15s;
+border-style: none;
+}
+
+.taskAddButton_image {
+  position: static;
+  width: 50px;
+  height: 50px;
+
+}
+
+.taskFormBlur {   
+  filter: blur(5px);
+  margin:0;
+  padding:0;
+  pointer-events: none;
+}
+
+.taskCreator {
+  position: absolute;
+  width: 665px;
+  height: 340px;
+
+  background: #F5F5F5;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  top:40%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.taskCreator_title {
+  /* Add Task: */
+
+  position: relative;
+  height: 0px;
+  top: 59px;
+  font-family: 'Ek Mukta ExtraBold';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 0px;
+  /* identical to box height, or 0% */
+  text-align: center;
+  letter-spacing: 0.15em;
+
+  color: #222222;
+
+
+}
+
+.taskCreator_frameName {
+
+  /* TITLE */
+  
+  white-space: nowrap;
+  height: 17px;
+  font-family: 'Ek Mukta ExtraBold';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 17px;
+  /* identical to box height */
+  letter-spacing: 0.2em;
+  
+  color: #000000;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  
+  
+}
+
+.taskCreator_inputFrame::placeholder, .taskCreator_inputFrame {
+  /* Task Title */
+
+width: 450px;
+height: 29px;
+font-smooth: 10em;
+font-family: 'Ek Mukta Medium';
+font-style: normal;
+outline: none;
+font-weight: 400;
+font-size: 12px;
+line-height: 30px;
+/* identical to box height */
+
+/* Gray */
+color: #A6A6A6;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+}
+
+
+.taskCreator_titleFrame {
+  /* Title */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  position: relative;
+  width: 563px;
+  height: 33px;
+  left: 51px;
+  top: 106px;
+
+  /* White */
+  background: #FFFFFF;
+  /* Gray */
+  border: 1px solid #A6A6A6;
+  border-radius: 4px;
+
+}
+
+.taskCreator_descFrame {
+  /* Description */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  position: absolute;
+  width: 563px;
+  height: 33px;
+  left: 51px;
+  top: 154px;
+
+  /* White */
+  background: #FFFFFF;
+  /* Gray */
+  border: 1px solid #A6A6A6;
+  border-radius: 4px;
+
+}
+
+.taskCreator_deadlineFrame {
+    /* Deadline */
+
+  position: absolute;
+  width: 553px;
+  height: 56px;
+  left: 56px;
+  top: 196px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+  gap: 17px;
+
+
+}
+
+.taskCreator_deadlineTitle {
+  /* DEADLINE */
+
+  position: absolute;
+  left: 45.86%;
+  right: 45.56%;
+  top: 57.65%;
+  bottom: 37.35%;
+
+  font-family: 'Ek Mukta ExtraBold';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 17px;
+  /* identical to box height */
+  text-align: center;
+  letter-spacing: 0.2em;
+
+  color: #000000;
+
+
+}
+
+.taskCreator_deadlineElement {
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  position: relative;
+  left: 0%;
+  right: 82.46%;
+  top: 46.43%;
+  bottom: 0%;
+
+  background: #FFFFFF;
+  border: 1px solid #A6A6A6;
+  border-radius: 4px;
+
+  width: 95px;
+  height: 29px;
+
+  font-family: 'Ek Mukta Medium';
+  font-style: normal;
+  outline: none;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  line-height: 30px;
+
+  color: #A6A6A6;
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  flex: auto;
+}
+
+.taskCreator_saveButton {
+
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 131px;
+  height: 39px;
+  left: 268px;
+  top: 285px;
+
+  background: #5F5F5F;
+  border: 1px solid #A6A6A6;
+  border-radius: 5px;
+
+  font-family: 'Ek Mukta Light';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 33px;
+  text-align: center;
+  letter-spacing: 0.1em;
+
+  color: #FFFFFF;
+
+
+
+
+}
+
+.taskCreatorExitButton {
+
+  position: absolute;
+  width: 10.14px;
+  height: 9.14px;
+  left: 630px;
+  top: 15px;
+  border-style:none;
+  cursor:pointer;
+
 
 }
 

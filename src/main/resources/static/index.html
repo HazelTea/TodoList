@@ -13,16 +13,56 @@
         <div name="deadline" class="taskTemplate_date"> 01/01/1970</div>
         <center><div class="taskTemplate_dateLine"></div></center>
       </div>
-    </template>  
+    </template>
 
-      <div class="background">
+    <template id="creatorTemplate">
+      <div class="taskCreator">
+        <button class="taskCreatorExitButton">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1.29289" y1="10.4313" x2="10.4313" y2="1.2929" stroke="#A9A9A9" stroke-width="2"/>
+            <line x1="1.70711" y1="1.29289" x2="10.8455" y2="10.4313" stroke="#A9A9A9" stroke-width="2"/>
+            </svg>
+            
+        </button>
+        <div class="taskCreator_title">Add Task:</div>
+        <form id="taskCreatorForm">
+  
+          <div class="taskCreator_titleFrame">
+            <span class="taskCreator_frameName">TITLE</span>
+            <input type="text" name="taskTitle" placeholder="Task Title" style="border-style:none" class="taskCreator_inputFrame">
+          </div>
+  
+          <div class="taskCreator_descFrame">
+            <span class="taskCreator_frameName">DESCRIPTION</span>
+            <input type="text" name="taskDescription" placeholder="Task Description" style="border-style:none" class="taskCreator_inputFrame">
+          </div>
+  
+          <div class="taskCreator_deadlineTitle">DEADLINE</div>
+  
+          <div class="taskCreator_deadlineFrame">
+            <input type="text" name="deadlineYear" placeholder="YY" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="deadlineMonth" placeholder="MM" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="deadlineDay" placeholder="DD" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="deadlineHour" placeholder="HH" class="taskCreator_deadlineElement"></input>
+            <input type="text" name="deadlineMinute" placeholder="mm" class="taskCreator_deadlineElement"></input>
+          </div>
+          <input type="submit" name="submitter" class="taskCreator_saveButton" value="SAVE">
+  
+        </form>
+      </div>
+    </template>
+
+      <div id="Background" class="background">
         <div class="menuTab">
           <div class="menuTitle">Menu</div>
-          <div class="taskTitle">Todo List
-            <span id="taskCounter" class="taskCounter">0</span>
+          <div class="pageTitle">Todo List
+            <span id="taskCounter" class="taskCounter"></span>
         </div>
-          
-          <div id="TaskContainer" class="taskContainer"></div>
+          <div id="TaskContainer" class="taskContainer">
+            <button id="AddButton" class="taskAddButton">
+              <image src="images/plusSign.png" class="taskAddButton_image">
+            </button>
+          </div>
       </div>
       <script src="index.js"></script>
   </body>
