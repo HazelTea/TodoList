@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: 'Ek Mukta ExtraBold';
   src: 
@@ -19,7 +20,7 @@ body {
 
 .background {
   position:fixed;
-  width: 1111.08px;
+  width: 1200px;
   height: 770.67px;
 
   background: #FFFFFF;
@@ -53,7 +54,7 @@ position: absolute;
 width: 63px;
 height: 14px;
 left: 12.93px;
-top: 5px;
+top: 25px;
 
 font-family: 'Ek Mukta ExtraBold';
 font-style: normal;
@@ -81,17 +82,18 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 .taskTitle {
 
-  position: absolute;
+  position: relative;
   width: 300px;
 
   font-family: 'Ek Mukta ExtraBold';
   font-style: normal;
   font-weight: 700;
-  font-size: 45px;
+  font-size: 35.5px;
   line-height: 0px;
   letter-spacing: 0.05em;
-  left: 243px;
-  top: 20px;
+  left: 230px;
+  top:50px;
+  white-space: nowrap;
 
   color: #3D3D3D;
 
@@ -99,22 +101,42 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 }
 
+.taskCounter {
+
+  position:relative;
+  width: 24px;
+  height: 24px;
+  left: 0px;
+  bottom: 15px;
+
+  font-family: 'Ek Mukta ExtraBold';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 15px;
+  letter-spacing: 0.05em;
+
+  color: #EB3678;
+
+
+}
+
 .taskContainer {
 
   position: absolute;
-  width: 640px;
+  width: 700px;
   height: 550px;
   left: 250px;
-  bottom: 14px;
+  bottom: 40px;
   display: flex;
   flex-flow: row wrap;
   justify-content: left;
   gap: 20px;
+  overflow-y: scroll;
 
 }
 
 .taskFrame {
-  /* TaskTemplate */
   flex: auto;
   position:static;
   width: 200px;
@@ -128,7 +150,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
 .taskTemplate_title {
-  /* TaskTitle */
 
   position: relative;
   width: 200px;
@@ -139,9 +160,8 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   font-family: 'Ek Mukta ExtraBold';
   font-style: normal;
   font-weight: 800;
-  font-size: 25px;
+  font-size: 22px;
   line-height: 0px;
-  /* or 0% */
   align-items: center;
   text-align: center;
   letter-spacing: 0.05em;
@@ -152,7 +172,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
 .taskTemplate_titleLine {
-  /* TitleLine */
 
   position: static;
   width: 200px;
@@ -166,7 +185,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
 .taskTemplate_description {
-  /* TaskDescription */
 
   position:relative;
   width: 180px;
@@ -179,7 +197,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   font-weight: 500;
   font-size: 15px;
   line-height: 15px;
-  /* or 100% */
   text-align: center;
   letter-spacing: 0.05em;
 
@@ -190,7 +207,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 
 .taskTemplate_date {
-  /* TaskDate */
 
   position: relative;
   width: 200px;
@@ -203,7 +219,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   font-weight: 500;
   font-size: 15px;
   line-height: 15px;
-  /* identical to box height, or 100% */
   text-align: center;
   letter-spacing: 0.05em;
 
@@ -212,7 +227,6 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
 .taskTemplate_dateLine {
-  /* DateLine */
 
   position: relative;
   width: 65px;
@@ -224,26 +238,3 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 }
 
-.taskCounter {
-
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  left: 530px;
-  top: 31.72px;
-
-  font-family: 'Ek Mukta ExtraBold';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 25px;
-  line-height: 15px;
-  /* or 60% */
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.05em;
-
-  color: #EB3678;
-
-
-}

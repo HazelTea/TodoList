@@ -22,6 +22,7 @@ function addTask(title = "None",description = "None",date = "None") {
     titleElement.innerHTML = title
     descElement.innerHTML = description
     dateElement.innerHTML = date
+    dateElement.style.fontSize = "10px"
 
     frame.style.backgroundColor = color
     frame.style.backgroundImage = `linear-gradient(-150deg, ${color} 50%,rgb(1,1,1,50%))`
@@ -29,7 +30,7 @@ function addTask(title = "None",description = "None",date = "None") {
 }
 
 async function getTasks() {
-    const response = await fetch("http://localhost:8080/tasks")
+    const response = await fetch("/tasks")
     return await response.json()
 }
 
@@ -42,7 +43,7 @@ async function updateTaskList() {
     const tasks = await getTasks()
     tasks.forEach(task => {
         const date = new Date(task.deadline)
-        addTask(task.title,task.description,date.toDateString())
+        addTask(task.title,task.description,date.toUTCString().replaceAll(":00 GMT",""))
     });
 }
 

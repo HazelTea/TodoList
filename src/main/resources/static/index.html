@@ -13,14 +13,17 @@
         <div name="deadline" class="taskTemplate_date"> 01/01/1970</div>
         <center><div class="taskTemplate_dateLine"></div></center>
       </div>
-    </template>    
+    </template>  
+
       <div class="background">
         <div class="menuTab">
-          <p class="menuTitle">Menu</p>
+          <div class="menuTitle">Menu</div>
+          <div class="taskTitle">Todo List
+            <span id="taskCounter" class="taskCounter">0</span>
+        </div>
+          
+          <div id="TaskContainer" class="taskContainer"></div>
       </div>
-      <p class="taskTitle"> Sticky Notes</p>
-      <div id="TaskContainer" class="taskContainer"></div>
-      <div id="taskCounter" class="taskCounter">0</div>
       <script src="index.js"></script>
   </body>
 </html>
