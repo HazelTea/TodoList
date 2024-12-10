@@ -41,9 +41,9 @@ function reactToMouse(event,main,interaction) {
 
     switch (interaction) {
         case "moving":
-            // background.style.transform = `rotateX(${-y / 7.5}deg) rotateY(${x / 7.5}deg)`
+            background.style.transform = `rotateX(${-y / 7.5}deg) rotateY(${x / 7.5}deg)`
             if (gradient.style.display != "block") gradient.style.display = "block" 
-            // if (background.style.transition != "transform 0.1s") background.style.transition = "transform 0.1s"
+            if (background.style.transition != "transform 0.1s") background.style.transition = "transform 0.1s"
 
             const gradientRect = gradient.getBoundingClientRect()
             const x2 = event.clientX - (rect.left + gradientRect.width / 2)
@@ -54,8 +54,8 @@ function reactToMouse(event,main,interaction) {
 
         case "leaving":
             gradient.style.display = "none" 
-            // background.style.transition = "transform 0.5s"
-            // background.style.transform = `rotateX(0deg) rotateY(0deg)`
+            background.style.transition = "transform 0.5s"
+            background.style.transform = `rotateX(0deg) rotateY(0deg)`
             break
     }
 
