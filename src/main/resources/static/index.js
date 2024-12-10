@@ -42,7 +42,7 @@ function reactToMouse(event,main,interaction) {
     if (interaction=="moving" && !startingAnim) {
         gradient.style.display = "block" 
         background.style.perspective = "500px"
-        background.style.transform = `rotateX(${-y / 8}deg) rotateY(${x / 8}deg)`
+        background.style.transform = `rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`
         background.style.transition = "transform 0s"
         const gradientRect = gradient.getBoundingClientRect()
         const x2 = event.clientX - (rect.left + gradientRect.width / 2)
@@ -65,6 +65,15 @@ function generateTaskColor() {
     return color
 }
 
+let selectedTask = null
+
+function selectTaskElement(task) {
+
+}
+
+function deselectElement(task) {
+
+}
 
 function enterTaskCreator() {
     if (mode == "none") {
