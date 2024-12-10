@@ -1,3 +1,4 @@
+
 const taskContainer = document.getElementById("TaskContainer")
 const listBackground = document.getElementById("Background")
 const taskTemplate = document.getElementById("taskTemplate")
@@ -12,6 +13,49 @@ let currentColor = 0
 
 function formatDate(date) {
     return date.toUTCString().replaceAll(":00 GMT","")
+}
+
+var id = null;
+function animate(element,x,destX,y,destY) {
+  clearInterval(id);
+  id = setInterval(frame, 10);
+  function frame() {
+    if (x == destX && y == destY) {
+      clearInterval(id);
+    } else {
+      x += Math.sign(destX)
+      y += Math.sign(destY)
+      element.style.top = pos + 'px';
+      element.style.left = pos + 'px';
+    }
+  }
+}
+
+let startingAnim = false
+function reactToMouse(event,main,interaction) {
+    const background = main.children["background"]
+    const gradient = background.children["mouseGradient"]
+    const rect = background.getBoundingClientRect()
+    const x = event.clientX - (rect.left + rect.width / 2)
+    const y = event.clientY - (rect.top + rect.height / 2)
+
+    if (interaction=="moving" && !startingAnim) {
+        gradient.style.display = "block" 
+        background.style.perspective = "500px"
+        background.style.transform = `rotateX(${-y / 8}deg) rotateY(${x / 8}deg)`
+        background.style.transition = "transform 0s"
+        const gradientRect = gradient.getBoundingClientRect()
+        const x2 = event.clientX - (rect.left + gradientRect.width / 2)
+        const y2 = event.clientY - (rect.top + gradientRect.height / 2)
+        gradient.style.left = x2 + "px"
+        gradient.style.top = y2 + "px"
+
+    } else if (interaction=="leaving") {
+        gradient.style.display = "none" 
+        background.style.transition = "transform 0.5s"
+        background.style.transform = `rotateX(0deg) rotateY(0deg)`
+    }
+
 }
 
 function generateTaskColor() {
@@ -52,7 +96,6 @@ async function taskCreatorSave(saveButton) {
 
 function leaveTaskCreator(button) {
     const creator = button.parentNode
-    console.log(creator)
     listBackground.classList.remove("taskFormBlur")
     creator.remove()
     mode = "none"
@@ -64,16 +107,17 @@ function addTaskUI(title = "None",description = "None",date = "None") {
     const color = generateTaskColor()
     const clonedTemplate = taskTemplate.content.cloneNode(true)
     const frame = clonedTemplate.children["frame"]
-    const titleElement = frame.children["title"]
-    const descElement = frame.children["description"]
-    const dateElement = frame.children["deadline"]
+    const background = frame.children["background"]
+    const titleElement = background.children["title"]
+    const descElement = background.children["description"]
+    const dateElement = background.children["deadline"]
     titleElement.innerHTML = title
     descElement.innerHTML = description
     dateElement.innerHTML = date
     dateElement.style.fontSize = "10px"
 
-    frame.style.backgroundColor = color
-    frame.style.backgroundImage = `linear-gradient(-150deg, ${color} 50%,rgb(1,1,1,50%))`
+    background.style.backgroundColor = color
+    background.style.backgroundImage = `linear-gradient(-150deg, ${color} 50%,rgb(1,1,1,50%))`
     taskContainer.appendChild(clonedTemplate)
 }
 
@@ -83,6 +127,7 @@ async function getTasks() {
 }
 
 async function saveTask(title,desc,deadline) {
+    console.log(title,desc,deadline)
     return await fetch(`/tasks?title=${title}&description=${desc}&deadline=${deadline}`, {method: "POST"})
 }
 
@@ -95,8 +140,8 @@ async function updateTaskCount() {
 async function updateTaskList() {
     const tasks = await getTasks()
     tasks.forEach(task => {
-        const title = task.title ? "None" : task.title
-        const desc = task.description ? "None" : task.description
+        const title = !task.title ? "None" : task.title
+        const desc = !task.description ? "None" : task.description
         const date = new Date(task.deadline)
         addTaskUI(title,desc,formatDate(date))
     });
