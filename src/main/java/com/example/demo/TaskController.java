@@ -28,7 +28,7 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public @ResponseBody String addTask(@RequestParam Map<String, String> params) {
+    public @ResponseBody Task addTask(@RequestParam Map<String, String> params) {
         String title = params.get("title");
         String description = params.get("description");
         String deadline = params.get("deadline");
@@ -38,7 +38,7 @@ public class TaskController {
         newTask.setDeadline(deadline);
         newTask.setFinishedStatus(false);
         taskList.save(newTask);
-        return "Saved";
+        return newTask;
     }
 
     @GetMapping("/tasks/list")

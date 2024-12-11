@@ -11,54 +11,121 @@ let mode = "none"
 
 let currentColor = 0
 
+async function getTasks() {
+    const response = await fetch("/tasks")
+    return await response.json()
+}
+
+async function getTask(id) {
+    const response = await fetch(`/tasks/${id}`)
+    return await response.json()
+}
+
+async function saveTask(title,desc,deadline) {
+    return await fetch(`/tasks?title=${title}&description=${desc}&deadline=${deadline}`, {method: "POST"})
+}
+
+async function updateTaskCount() {
+    const tasks = await getTasks()
+    taskCounter.innerHTML = tasks.length || "0"
+}
+
+async function updateTaskList() {
+    const tasks = await getTasks()
+    tasks.forEach(task => {
+        addTaskUI(task)
+    });
+}
+
+
+async function taskCreatorSave(saveButton) { 
+    const form = saveButton.parentNode
+
+    const title = !form.title.value ? "NONE" : form.title.value.toUpperCase()
+    const desc = !form.desc.value ? "None" : form.desc.value 
+    const year = form.year.value || 1970
+    const month = Number(form.month.value) || 0
+    const day = Number(form.day.value) || 1
+    const hour = Number(form.hour.value) || 0
+    const minute = Number(form.minute.value) || 0
+    const date = new Date()
+    date.setFullYear(year,month,day)
+    date.setHours(hour,minute,0)
+
+    const response = await saveTask(title,desc,date)
+    const task = await response.json()
+    updateTaskCount()
+    addTaskUI(task)
+    leaveTaskCreator(saveButton.parentNode)
+
+}
+
+async function taskFrameClicked(e,taskFrame) {
+    const id = taskFrame.id.split("-")[1]
+    const task = await getTask(id)
+    const holdingShift = e.shiftKey
+    if (holdingShift) {
+        selectTask(task,false)
+    } else {
+        selectTask(task,true)
+    }
+
+}
+
+let selectedTasks = []
+
+function findSelectedTaskById(id) {
+    let foundTask = null
+    selectedTasks.forEach((value) => {
+        if (value.id === id) return foundTask = value
+    })
+    return foundTask
+}
+
+function selectTask(task,clearArray) { 
+    const length = selectedTasks.length
+    const foundTask = findSelectedTaskById(task.id)
+    if (clearArray) deselectAllTasks(task.id)
+    if (!foundTask) {
+        selectedTasks.push(task)
+        const taskFrame = document.getElementById(`task-${task.id}`)
+        addSelectedTaskStyle(taskFrame)
+        if (clearArray) deselectAllTasks(task.id)
+
+    } else if (foundTask && length <= 1) {
+        deselectTask(task)
+    }  else if (foundTask && length > 1) {
+        deselectAllTasks(task.id)
+    }
+
+}
+
+function deselectTask(task) {
+    const foundTask = findSelectedTaskById(task.id)
+    const index = selectedTasks.indexOf(foundTask)
+    selectedTasks.splice(index,1)
+    const taskFrame = document.getElementById(`task-${task.id}`)
+    removeSelectedTaskStyle(taskFrame)
+}
+
+function deselectAllTasks(exceptionId) {
+    selectedTasks.forEach((task) => {
+        if (exceptionId != task.id) {
+            deselectTask(task)
+        }
+    })
+}
+
+function addSelectedTaskStyle(taskFrame) {
+    taskFrame.classList.add("taskFrame_selected")
+}
+
+function removeSelectedTaskStyle(taskFrame) {
+    taskFrame.classList.remove("taskFrame_selected")
+}
+
 function formatDate(date) {
     return date.toUTCString().replaceAll(":00 GMT","")
-}
-
-var id = null;
-function animate(element,x,destX,y,destY) {
-  clearInterval(id);
-  id = setInterval(frame, 10);
-  function frame() {
-    if (x == destX && y == destY) {
-      clearInterval(id);
-    } else {
-      x += Math.sign(destX)
-      y += Math.sign(destY)
-      element.style.top = pos + 'px';
-      element.style.left = pos + 'px';
-    }
-  }
-}
-
-let startingAnim = false
-function reactToMouse(event,main,interaction) {
-    const background = main.children["background"]
-    const gradient = background.children["mouseGradient"]
-    const rect = background.getBoundingClientRect()
-    const x = event.clientX - (rect.left + rect.width / 2)
-    const y = event.clientY - (rect.top + rect.height / 2) 
-
-    switch (interaction) {
-        case "moving":
-            background.style.transform = `rotateX(${-y / 7.5}deg) rotateY(${x / 7.5}deg)`
-            if (gradient.style.display != "block") gradient.style.display = "block" 
-            if (background.style.transition != "transform 0.1s") background.style.transition = "transform 0.1s"
-
-            const gradientRect = gradient.getBoundingClientRect()
-            const x2 = event.clientX - (rect.left + gradientRect.width / 2)
-            const y2 = event.clientY - (rect.top + gradientRect.height / 2)
-            gradient.style.left = x2 + "px"
-            gradient.style.top = y2 + "px"
-            break
-
-        case "leaving":
-            gradient.style.display = "none" 
-            background.style.transition = "transform 0.5s"
-            background.style.transform = `rotateX(0deg) rotateY(0deg)`
-            break
-    }
-
 }
 
 function generateTaskColor() {
@@ -66,16 +133,6 @@ function generateTaskColor() {
     const color = colors[currentColor]  
     currentColor += 1
     return color
-}
-
-let selectedTask = null
-
-function selectTaskElement(task) {
-
-}
-
-function deselectElement(task) {
-
 }
 
 function enterTaskCreator() {
@@ -88,24 +145,6 @@ function enterTaskCreator() {
 
 }
 
-async function taskCreatorSave(saveButton) { 
-    const form = saveButton.parentNode
-
-    const title = form.title.value ? "NONE" : form.title.value.toUpperCase()
-    const desc = form.desc.value ? "None" : form.desc.value 
-    const year = form.year.value || "1970"
-    const month = form.month.value || "01"
-    const day = form.day.value || "01"
-    const hour = form.hour.value || "00"
-    const minute = form.minute.value || "00"
-    const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:00Z`)
-    await saveTask(title,desc,date)
-    updateTaskCount()
-    addTaskUI(title,desc,formatDate(date))
-    leaveTaskCreator(saveButton.parentNode)
-
-}
-
 function leaveTaskCreator(button) {
     const creator = button.parentNode
     listBackground.classList.remove("taskFormBlur")
@@ -113,11 +152,39 @@ function leaveTaskCreator(button) {
     mode = "none"
 }
 
+function reactToMouse(event,main,interaction) {
+    const background = main.children["background"]
+    const gradient = background.children["mouseGradient"]
+    const rect = background.getBoundingClientRect()
+    const x = event.clientX - (rect.left + rect.width / 2)
+    const y = event.clientY - (rect.top + rect.height / 2) 
+
+    switch (interaction) {
+        case "moving":
+            background.style.transform = `rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`
+            if (gradient.style.display != "block") gradient.style.display = "block" 
+            if (background.style.transition != "transform 0.1s") background.style.transition = "transform 0.1s"
+
+            const gradientRect = gradient.getBoundingClientRect()
+            const x2 = event.clientX - (gradientRect.left)
+            const y2 = event.clientY - (gradientRect.top)
+            gradient.style.background = `radial-gradient(at ${x2}px ${y2}px,rgb(0,0,0,15%), rgb(0,0,0, 0%) 25%)`;
+            break
+
+        case "leaving":
+            gradient.style.display = "none" 
+            background.style.transition = "transform 0.5s"
+            background.style.transform = `rotateX(0deg) rotateY(0deg)`
+            break
+    }
+
+}
+
 function addTaskUI(task) {
     const color = generateTaskColor()
     const clonedTemplate = taskTemplate.content.cloneNode(true)
     const frame = clonedTemplate.children["frame"]
-    frame.id = `task_${task.id}`
+    frame.id = `task-${task.id}`
     const background = frame.children["background"]
     const titleElement = background.children["title"]
     const descElement = background.children["description"]
@@ -134,28 +201,7 @@ function addTaskUI(task) {
 
     frame.addEventListener("mousemove", (e) => {reactToMouse(e,frame,"moving")});
     frame.addEventListener("mouseleave", (e) => {reactToMouse(e,frame,"leaving")});
-}
-
-async function getTasks() {
-    const response = await fetch("/tasks")
-    return await response.json()
-}
-
-async function saveTask(title,desc,deadline) {
-    console.log(title,desc,deadline)
-    return await fetch(`/tasks?title=${title}&description=${desc}&deadline=${deadline}`, {method: "POST"})
-}
-
-async function updateTaskCount() {
-    const tasks = await getTasks()
-    taskCounter.innerHTML = tasks.length || "0"
-}
-
-async function updateTaskList() {
-    const tasks = await getTasks()
-    tasks.forEach(task => {
-        addTaskUI(task)
-    });
+    frame.addEventListener("click", (e) => {taskFrameClicked(e,frame)})
 }
 
 addButton.addEventListener("click", enterTaskCreator);
