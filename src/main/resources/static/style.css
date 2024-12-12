@@ -146,13 +146,14 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   justify-content: left;
   gap: 20px;
   overflow-y: scroll;
+  z-index: 5
 
 }
 
 .taskContainer > * {
   cursor: pointer;
   transition: all 0.1s;
-  perspective: 750px 
+  perspective: 500px 
 }
 
 .taskFrame {
@@ -166,6 +167,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   border-radius: 15px;
   transition: scale 0.1s;
   user-select: none;
+  z-index: 3;
 
 }
 

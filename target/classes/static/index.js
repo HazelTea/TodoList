@@ -72,6 +72,12 @@ async function taskFrameClicked(e,taskFrame) {
 
 }
 
+function taskContainerClicked(e,container) {
+    if (e.target == container) {
+        clearSelectedTasks()
+    }
+}
+
 let selectedTasks = []
 
 function findSelectedTaskById(id) {
@@ -82,20 +88,29 @@ function findSelectedTaskById(id) {
     return foundTask
 }
 
+function getTaskFrame(id) {
+    return document.getElementById(`task-${id}`)
+}
+
 function selectTask(task,clearArray) { 
     const length = selectedTasks.length
     const foundTask = findSelectedTaskById(task.id)
-    if (clearArray) deselectAllTasks(task.id)
+    const taskFrame = document.getElementById(`task-${task.id}`)
     if (!foundTask) {
         selectedTasks.push(task)
-        const taskFrame = document.getElementById(`task-${task.id}`)
         addSelectedTaskStyle(taskFrame)
-        if (clearArray) deselectAllTasks(task.id)
+        if (clearArray) clearSelectedTasks(task.id)
+    } else {
+        if (clearArray) {
+            if (length > 1) {
+                clearSelectedTasks(task.id)
+            } else {
+                deselectTask(task)
+            }
+        } else {
+            deselectTask(task)
+        }
 
-    } else if (foundTask && length <= 1) {
-        deselectTask(task)
-    }  else if (foundTask && length > 1) {
-        deselectAllTasks(task.id)
     }
 
 }
@@ -104,16 +119,16 @@ function deselectTask(task) {
     const foundTask = findSelectedTaskById(task.id)
     const index = selectedTasks.indexOf(foundTask)
     selectedTasks.splice(index,1)
-    const taskFrame = document.getElementById(`task-${task.id}`)
+    const taskFrame = getTaskFrame(task.id)
     removeSelectedTaskStyle(taskFrame)
 }
 
-function deselectAllTasks(exceptionId) {
-    selectedTasks.forEach((task) => {
-        if (exceptionId != task.id) {
-            deselectTask(task)
-        }
+function clearSelectedTasks(exceptionId) {
+    const task = findSelectedTaskById(exceptionId)
+    selectedTasks.forEach((task) =>  {
+        if (task.id != exceptionId) removeSelectedTaskStyle(getTaskFrame(task.id))
     })
+    task ? selectedTasks = [task] : selectedTasks = []
 }
 
 function addSelectedTaskStyle(taskFrame) {
@@ -161,7 +176,7 @@ function reactToMouse(event,main,interaction) {
 
     switch (interaction) {
         case "moving":
-            background.style.transform = `rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`
+            background.style.transform = `rotateX(${-y / 7}deg) rotateY(${x / 7}deg)`
             if (gradient.style.display != "block") gradient.style.display = "block" 
             if (background.style.transition != "transform 0.1s") background.style.transition = "transform 0.1s"
 
@@ -205,6 +220,7 @@ function addTaskUI(task) {
 }
 
 addButton.addEventListener("click", enterTaskCreator);
+taskContainer.addEventListener("click", (e) => {taskContainerClicked(e,taskContainer)})
 
 updateTaskList()
 updateTaskCount()
