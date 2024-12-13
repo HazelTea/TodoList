@@ -1,6 +1,4 @@
-html * {
-  -webkit-font-smoothing: antialiased !important;
-}
+
 
 
 @font-face {
@@ -36,12 +34,12 @@ body {
   background-image: url("images/Transparent\ background_\ Checkered.png");
   margin:0;
   padding:0;
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 
-  text-rendering: optimizeLegibility; 
+  text-rendering: optimizeLegibility;  */
 
   /* background grid */
-  height: 15rem;
+  height: 16rem;
   background-image: radial-gradient(circle, rgb(78,78,78) 1px, rgb(38, 38, 38) 1px);
   background-size: 2.5rem 2.5rem;
   background-position: center center;
@@ -49,14 +47,17 @@ body {
 
 
 .mainFrame {
-
   position: fixed;
   width: 1107.25px;
   height: 607px;
   top:50%;
   left: 50%;
+  border-radius: 25px;
   transform: translateX(-50%) translateY(-50%);
-  z-index: -9999;
+  
+  box-shadow: 0px 0px 100px 0px #121212;
+  
+
 }
 
 .todo__background {
@@ -155,11 +156,14 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   justify-content: left;
   gap: 20px;
   overflow-y: scroll;
-  overflow: hidden;
   z-index: 5;
 
   border-top: 1px solid #8D8D8D;
 
+}
+
+.todo__task__container::-webkit-scrollbar {
+  background-color: rgb(0,0,0,0%);
 }
 
 .todo__task__container > * {
@@ -385,7 +389,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
   box-sizing: border-box;
 
-  position: absolute;
+  position: static;
   width: 156.75px;
   height: 172.43px;
   left: 212.39px;
@@ -399,7 +403,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   filter: brightness(110%);
 }
 
-.taskFrame-selected .taskFrame__background {
+.taskFrame--selected .taskFrame__background {
   box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.5);
 }
 
@@ -435,11 +439,12 @@ width: 156.75px;
 height: 15.68px;
 left: 0px;
 top: 26px;
+user-select: none;
 
 font-family: 'Ek Mukta Medium';
 font-style: normal;
 font-weight: 500;
-font-size: 19.5938px;
+font-size: 20px;
 line-height: 0px;
 /* or 0% */
 align-items: center;
@@ -473,6 +478,7 @@ border: 0.78375px solid #FB773C;
   height: 52.51px;
   left: 7.84px;
   top: 62.7px;
+  user-select: none;
 
   font-family: 'Ek Mukta Regular';
   font-style: normal;
@@ -491,34 +497,34 @@ border: 0.78375px solid #FB773C;
 
 
 .taskFrame__date {
-
-  position: relative;
-  width: 200px;
-  height: 15px;
+  position: absolute;
+  width: 156.75px;
+  height: 11.76px;
   left: 0px;
-  top: 20px;
+  top: 129.32px;
+  
+  user-select: none;
 
-  font-family: 'Ek Mukta Medium';
+  font-family: 'Ek Mukta Light';
   font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 15px;
+  font-weight: 300;
+  font-size: 11.7562px;
+  line-height: 12px;
+  /* identical to box height, or 100% */
   text-align: center;
   letter-spacing: 0.05em;
 
-  color: #FFFFFF;
-
+  color: #FB773C;
 }
 
 .taskFrame__dateLine {
-
-  position: relative;
-  width: 65px;
+  position: absolute;
+  width: 62.7px;
   height: 0px;
-  top: 30px;
-  
+  left: 47.02px;
+  top: 147.5px;
 
-  border: 1px solid #FFFFFF;
+  border: 0.78375px solid #FB773C;
 
 }
 

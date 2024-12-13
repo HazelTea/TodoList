@@ -6,17 +6,16 @@
   </head>
   <body>
     <template id="taskTemplate">
-        <div name="frame" class="taskFrame">
-          <div name="background" class="taskFrame__background" > 
-            <canvas class="taskFrame__mouseGradient" name="mouseGradient"></canvas>         
-            <p name="title" class="taskFrame__title">LOREM IPSUM</p>
-            <div class="taskFrame__titleLine"></div>
-            <div name="description" class="taskFrame__description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
-            <div name="deadline" class="taskFrame__date"> 01/01/1970</div>
-            <center><div class="taskFrame__dateLine"></div></center>
-          </div>
-          </div>
-
+      <div name="frame" class="taskFrame">
+        <div name="background" class="taskFrame__background" > 
+          <canvas class="taskFrame__mouseGradient" name="mouseGradient"></canvas>         
+          <div name="title" class="taskFrame__title">LOREM IPSUM</div>
+          <div name = "titleLine" class="taskFrame__titleLine"></div>
+          <div name="description" class="taskFrame__description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
+          <div name="deadline" class="taskFrame__date"> 01/01/1970</div>
+          <div name="dateLine" class="taskFrame__dateLine"></div>
+        </div>
+      </div>
     </template>
 
     <template id="creatorTemplate">
@@ -86,16 +85,7 @@
               <path d="M1.96124 17.2125H33.3112" stroke="white" stroke-width="2.74312" stroke-linecap="round"/>
               </svg>
             </button>
-            <div name="frame" class="taskFrame">
-              <div name="background" class="taskFrame__background" > 
-                <canvas class="taskFrame__mouseGradient" name="mouseGradient"></canvas>         
-                <div name="title" class="taskFrame__title">LOREM IPSUM</div>
-                <div class="taskFrame__titleLine"></div>
-                <div name="description" class="taskFrame__description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
-                <div name="deadline" class="taskFrame__date"> 01/01/1970</div>
-                <center><div class="taskFrame__dateLine"></div></center>
-              </div>
-              </div>
+
           </div>
       </div>
       <div class="properties">
@@ -106,6 +96,6 @@
           </svg>          
       </div>
     </div>
-      <!-- <script src="index.js"></script> -->
+      <script src="index.js"></script>
   </body>
 </html>

@@ -1,12 +1,12 @@
 
-const taskContainer = document.getElementById("TaskContainer")
-const listBackground = document.getElementById("Background")
+const taskContainer = document.getElementById("taskContainer")
+// const listBackground = document.getElementById("Background")
 const taskTemplate = document.getElementById("taskTemplate")
 const taskCounter = document.getElementById("taskCounter")
-const addButton = document.getElementById("AddButton")
+const addButton = document.getElementById("taskAddButton")
 const creatorTemplate = document.getElementById("creatorTemplate")
 
-const colors = ["#180161", "#4F1787","#EB3678","#FB773C"]
+const colors = ["#30C1FF", "#A750FF","#EB3678","#FB773C"]
 let mode = "none"
 
 let currentColor = 0
@@ -132,11 +132,11 @@ function clearSelectedTasks(exceptionId) {
 }
 
 function addSelectedTaskStyle(taskFrame) {
-    taskFrame.classList.add("taskFrame_selected")
+    taskFrame.classList.add("taskFrame--selected")
 }
 
 function removeSelectedTaskStyle(taskFrame) {
-    taskFrame.classList.remove("taskFrame_selected")
+    taskFrame.classList.remove("taskFrame--selected")
 }
 
 function formatDate(date) {
@@ -153,7 +153,7 @@ function generateTaskColor() {
 function enterTaskCreator() {
     if (mode == "none") {
         mode = "taskCreator"
-        listBackground.classList.add("taskFormBlur")
+        // listBackground.classList.add("taskFormBlur")
         const taskCreator = creatorTemplate.content.cloneNode(true)
         document.body.appendChild(taskCreator)
     }
@@ -162,7 +162,7 @@ function enterTaskCreator() {
 
 function leaveTaskCreator(button) {
     const creator = button.parentNode
-    listBackground.classList.remove("taskFormBlur")
+    // listBackground.classList.remove("taskFormBlur")
     creator.remove()
     mode = "none"
 }
@@ -204,14 +204,21 @@ function addTaskUI(task) {
     const titleElement = background.children["title"]
     const descElement = background.children["description"]
     const dateElement = background.children["deadline"]
+    const titleLine = background.children["titleLine"]
+    const dateLine = background.children["dateLine"]
     titleElement.innerHTML = task.title 
     descElement.innerHTML = task.description
+
     const date = new Date(task.deadline)
     dateElement.innerHTML = formatDate(date)
     dateElement.style.fontSize = "10px"
 
-    background.style.backgroundColor = color
-    background.style.backgroundImage = `linear-gradient(-150deg, ${color} 50%,rgb(1,1,1,50%))`
+    titleElement.style.color = color
+    background.style.borderColor = color
+    titleLine.style.borderColor = color
+    dateLine.style.borderColor = color
+    dateElement.style.color = color
+    descElement.style.color = color
     taskContainer.appendChild(clonedTemplate)
 
     frame.addEventListener("mousemove", (e) => {reactToMouse(e,frame,"moving")});
