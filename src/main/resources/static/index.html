@@ -7,13 +7,13 @@
   <body>
     <template id="taskTemplate">
         <div name="frame" class="taskFrame">
-          <div name="background" class="taskFrameBackground" > 
-            <canvas class="taskTemplate_mouseGradient" name="mouseGradient"></canvas>         
-            <p name="title" class="taskTemplate_title">LOREM IPSUM</p>
-            <div class="taskTemplate_titleLine"></div>
-            <div name="description" class="taskTemplate_description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
-            <div name="deadline" class="taskTemplate_date"> 01/01/1970</div>
-            <center><div class="taskTemplate_dateLine"></div></center>
+          <div name="background" class="taskFrame__background" > 
+            <canvas class="taskFrame__mouseGradient" name="mouseGradient"></canvas>         
+            <p name="title" class="taskFrame__title">LOREM IPSUM</p>
+            <div class="taskFrame__titleLine"></div>
+            <div name="description" class="taskFrame__description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
+            <div name="deadline" class="taskFrame__date"> 01/01/1970</div>
+            <center><div class="taskFrame__dateLine"></div></center>
           </div>
           </div>
 
@@ -56,18 +56,56 @@
       </div>
     </template>
 
-      <div id="Background" class="background">
-        <div class="menuTab">
-          <div class="menuTitle">Menu</div>
-          <div class="pageTitle">Todo List
-            <span id="taskCounter" class="taskCounter"></span>
+    <div class="mainFrame">
+      <div id="menu" class="menu">
+        <div class="menu__title">Menu</div>
+        <svg class="menu__button" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.17863 3.90294C9.4146 4.45707 9.41218 6.21269 8.17469 6.76477L2.68451 9.21411C1.64694 9.677 0.477466 8.91727 0.479032 7.78137L0.485796 2.87362C0.487362 1.73771 1.65893 0.979929 2.69522 1.44454L8.17863 3.90294Z" stroke="#949494" stroke-width="0.78375"/>
+          </svg>
+
+        <div class="menu__searchbar__frame">
+          <svg class="menu__searchbar__icon" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.972 13.48L7.436 8.94398C7.076 9.23198 6.662 9.45998 6.194 9.62798C5.726 9.79598 5.228 9.87998 4.7 9.87998C3.392 9.87998 2.285 9.42698 1.379 8.52098C0.473001 7.61498 0.0200005 6.50798 0.0200005 5.19998C0.0200005 3.89198 0.473001 2.78498 1.379 1.87898C2.285 0.972978 3.392 0.519978 4.7 0.519978C6.008 0.519978 7.115 0.972978 8.021 1.87898C8.927 2.78498 9.38 3.89198 9.38 5.19998C9.38 5.72798 9.296 6.22598 9.128 6.69398C8.96 7.16198 8.732 7.57598 8.444 7.93598L12.98 12.472L11.972 13.48ZM4.7 8.43998C5.6 8.43998 6.365 8.12498 6.995 7.49498C7.625 6.86498 7.94 6.09998 7.94 5.19998C7.94 4.29998 7.625 3.53498 6.995 2.90498C6.365 2.27498 5.6 1.95998 4.7 1.95998C3.8 1.95998 3.035 2.27498 2.405 2.90498C1.775 3.53498 1.46 4.29998 1.46 5.19998C1.46 6.09998 1.775 6.86498 2.405 7.49498C3.035 8.12498 3.8 8.43998 4.7 8.43998Z" fill="#49454F"/>
+            </svg>
+            <input id="mainSearchInput" class="menu__searchbar__inputFrame" type="text" placeholder="Search">
         </div>
-          <div id="TaskContainer" class="taskContainer">
-            <button id="AddButton" class="taskAddButton">
-              <image src="images/plusSign.png" class="taskAddButton_image">
+
+        <div class="menu__navigation__frame">
+          <div class="menu__navigation__title">Navigation</div>
+        </div>
+              
+      </div>
+      <div class="todo__background">
+          <div class="todo__title">All Tasks</div>
+          <div id="taskCounter" class="todo__task__counter">4</div>
+          <svg id="taskBin" class="todo__bin" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 4.98C15.67 4.65 12.32 4.48 8.98 4.48C7 4.48 5.02 4.58 3.04 4.78L1 4.98M6.5 3.97L6.72 2.66C6.88 1.71 7 1 8.69 1H11.31C13 1 13.13 1.75 13.28 2.67L13.5 3.97M16.85 8.14L16.2 18.21C16.09 19.78 16 21 13.21 21H6.79C4 21 3.91 19.78 3.8 18.21L3.15 8.14M8.33 15.5H11.66M7.5 11.5H12.5" stroke="#FF3535" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div id="taskContainer" class="todo__task__container">
+            <button id="taskAddButton" class="todo__task__container__addButton"> 
+              <svg class="todo__task__container__addButton__sign" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.2444 1.53749L17.2444 32.8875" stroke="white" stroke-width="2.74312" stroke-linecap="round"/>
+              <path d="M1.96124 17.2125H33.3112" stroke="white" stroke-width="2.74312" stroke-linecap="round"/>
+              </svg>
             </button>
+            <div name="frame" class="taskFrame">
+              <div name="background" class="taskFrame__background" > 
+                <canvas class="taskFrame__mouseGradient" name="mouseGradient"></canvas>         
+                <div name="title" class="taskFrame__title">LOREM IPSUM</div>
+                <div class="taskFrame__titleLine"></div>
+                <div name="description" class="taskFrame__description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
+                <div name="deadline" class="taskFrame__date"> 01/01/1970</div>
+                <center><div class="taskFrame__dateLine"></div></center>
+              </div>
+              </div>
           </div>
       </div>
-      <script src="index.js"></script>
+      <div class="properties">
+        <div class="properties__title">Properties</div>
+        <svg class="properties__lines" width="119" height="10" viewBox="0 0 119 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.750305 1.05294C46.6613 1.05294 72.4018 1.05294 118.313 1.05294" stroke="#949494" stroke-width="0.78375" stroke-linecap="round"/>
+          <path d="M20.1966 9.05294H98.5716" stroke="#949494" stroke-width="0.78375" stroke-linecap="round"/>
+          </svg>          
+      </div>
+    </div>
+      <!-- <script src="index.js"></script> -->
   </body>
 </html>

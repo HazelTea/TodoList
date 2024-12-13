@@ -21,110 +21,118 @@ html * {
   url(fonts/ek-mukta/EkMukta-Light.ttf),
 }
 
+@font-face {
+  font-family: "Ek Mukta ExtraLight";
+  src: url(fonts/ek-mukta/EkMukta-ExtraLight.ttf);
+}
 
-body {
-  background-color: #CACACA;
-  margin:0;
-  padding:0;
+@font-face {
+  font-family: "Ek Mukta Regular";
+  src: url(fonts/ek-mukta/EkMukta-Regular.ttf);
 }
 
 
-.background {
-  position:fixed;
-  width: 1200px;
-  height: 770.67px;
+body {
+  background-image: url("images/Transparent\ background_\ Checkered.png");
+  margin:0;
+  padding:0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+  text-rendering: optimizeLegibility; 
 
-  background: #FFFFFF;
-  box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.5);
-  
-  border-radius: 25px;
+  /* background grid */
+  height: 15rem;
+  background-image: radial-gradient(circle, rgb(78,78,78) 1px, rgb(38, 38, 38) 1px);
+  background-size: 2.5rem 2.5rem;
+  background-position: center center;
+}
+
+
+.mainFrame {
+
+  position: fixed;
+  width: 1107.25px;
+  height: 607px;
   top:50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: -9999;
 }
 
-.menuTab {
+.todo__background {
+  box-sizing: border-box;
 
   position: absolute;
-  width: 206px;
-  height: 739px;
-  left: 20.93px;
-  top: 16.72px;
-
-  background: #F4F4F4;
-  border-radius: 15px;
-
-
+  width: 614.46px;
+  height: 606.62px;
+  left: 212.99px;
+  top: 0px;
+  /* todoBackground */
+  border-width: 1px;
+  border-style: solid;
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      #272727 0%, 
+      #8b8b8b 50%,
+      #272727 100%
+    ) 1 100%;
+  background-image: radial-gradient(50% 50% at 50% 50%, #2E2E2E 0%, #2C2C2C 100%);
 
 }
 
-.menuTitle {
+.todo__title {
 
-position: absolute;
-width: 63px;
-height: 14px;
-left: 12.93px;
-top: 25px;
+/* Text */
 
-font-family: 'Ek Mukta ExtraBold';
+position: relative;
+width: 131px;
+height: 0px;
+left: 29px;
+top: 43.11px;
+white-space: nowrap;
+
+font-family: 'Ek Mukta Light';
 font-style: normal;
-font-weight: 800;
-font-size: 25px;
+font-size: 28px;
 line-height: 0px;
+/* identical to box height, or 0% */
+letter-spacing: 0.15em;
 
-color: #7E7E7E;
+color: #FFFFFF;
 
 transform: matrix(1, 0, 0, 1, 0, 0);
 
 
 }
 
-.menuButton {
+.todo__bin {
   position: absolute;
-  width:8px;
-  height: 16px;
-  left: 180.78px;
-  top: 22.02px;
-  border-radius: 2.5px;
-  transform: matrix(0, 1, -1, 0, 0, 0);
+  left: 90.65%;
+  right: 6.42%;
+  top: 18.96%;
+  bottom: 77.75%;
+
 
 }
 
-.pageTitle {
+.todo__task__counter {
 
   position: relative;
-  width: 300px;
+  width: 18.81px;
+  height: 18.81px;
+  left: 170px;
+  top: 24px;
 
-  font-family: 'Ek Mukta ExtraBold';
+  font-family: 'Ek Mukta Medium';
   font-style: normal;
-  font-weight: 700;
-  font-size: 35.5px;
-  line-height: 0px;
-  letter-spacing: 0.05em;
-  left: 230px;
-  top:50px;
-  white-space: nowrap;
-
-  color: #3D3D3D;
-
-  transform: matrix(1, 0, 0, 1, 0, 0);
-
-}
-
-.taskCounter {
-
-  position:relative;
-  width: 24px;
-  height: 24px;
-  left: 0px;
-  bottom: 15px;
-
-  font-family: 'Ek Mukta ExtraBold';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 15px;
+  font-weight: 500;
+  font-size: 19.5938px;
+  line-height: 12px;
+  /* or 60% */
+  display: flex;
+  align-items: center;
+  text-align: center;
   letter-spacing: 0.05em;
 
   color: #EB3678;
@@ -132,55 +140,270 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 }
 
-.taskContainer {
+.todo__task__container {
+  box-sizing: border-box;
 
   position: absolute;
-  width: 720px;
-  height: 550px;
-  padding-top: 50px;
+  width: 614px;
+  height: 431px;
+  left: calc(50% - 614px/2 - 0.22px);
+  top: 144px;
+  padding-top: 25px;
   padding-left:50px;
-  left: 200px;
-  bottom: 40px;
   display: flex;
   flex-flow: row wrap;
   justify-content: left;
   gap: 20px;
   overflow-y: scroll;
-  z-index: 5
+  overflow: hidden;
+  z-index: 5;
+
+  border-top: 1px solid #8D8D8D;
 
 }
 
-.taskContainer > * {
+.todo__task__container > * {
   cursor: pointer;
   transition: all 0.1s;
   perspective: 500px 
 }
 
-.taskFrame {
-  flex: auto;
-  position:static;
-  width: 200px;
-  height: 220px;
-  left: 8px;
-  top: 7px;
-  flex: 0 0 auto;
-  border-radius: 15px;
-  transition: scale 0.1s;
-  user-select: none;
-  z-index: 3;
+.todo__task__container__addButton {
+  /* AddButton */
+
+  box-sizing: border-box;
+
+  position: static;
+  width: 156.75px;
+  height: 172.43px;
+  left: 35.26px;
+  top: 25px;
+
+  background: rgba(51, 51, 51, 0.2);
+  border: 0.78375px solid #949494;
+  border-radius: 11.7562px;
 
 }
 
-.taskFrame_selected {
+.todo__task__container__addButton:hover {
+  box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.5);
+  scale: 1.05;
+}
+
+.todo__task__container__addButton__sign {
+    position: static;
+    width: 31.35px;
+    height: 31.35px;
+
+}
+
+.menu {
+
+position: absolute;
+width: 213px;
+height: 607px;
+left: 0px;
+top: 0px;
+
+background: linear-gradient(84.39deg, #333333 2.38%, #272727 93.15%);
+border-radius: 25px 0px 0px 25px;
+
+}
+
+.menu__title {
+
+position: absolute;
+width: 49px;
+height: 0px;
+left: 16px;
+top: 30px;
+
+font-family: 'Ek Mukta Light';
+font-style: normal;
+font-weight: 300;
+font-size: 15.675px;
+line-height: 0px;
+letter-spacing: 0.25em;
+
+color: #DEDEDE;
+
+transform: matrix(1, 0, 0, 1, 0, 0);
+
+
+
+}
+
+.menu__button {
+
+  position: absolute; 
+  left:190px;
+  top:30px;
+
+}
+
+.menu__searchbar__frame {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 5px;
+
+  position: absolute;
+  width: 167px;
+  height: 34px;
+  left: 16px;
+  top: 51px;
+
+  background: #232323;
+  border-radius: 7.5px;
+
+}
+
+.menu__searchbar__icon {
+
+  width: 12.96px;
+  height: 12.96px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+}
+
+.menu__searchbar__inputFrame {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+
+  width: 133px;
+  height: 28px;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  background-color: rgb(255,255,255,0%);
+  border-style: none;
+
+  font-family: 'Ek Mukta Medium';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: 0.36px;
+
+  color: #49454F;
+
+
+}
+
+.menu__navigation__frame {
+  position: absolute;
+  width: 213px;
+  height: 391px;
+  left: 0px;
+  top: 216px;
+
+  background: linear-gradient(90.43deg, #333333 12.86%, #272727 99.66%);
+  border-top: 0.78375px solid #8D8D8D;
+  border-radius: 0px 0px 0px 25px;
+
+}
+
+.menu__navigation__title {
+/* Navigate */
+
+position: absolute;
+width: 212.99px;
+height: 10px;
+top: 25px;
+
+font-family: 'Ek Mukta light';
+font-style: normal;
+font-weight: 300;
+font-size: 15.675px;
+line-height: 0px;
+/* or 0% */
+text-align: center;
+letter-spacing: 0.25em;
+
+color: #DEDEDE;
+
+transform: matrix(1, 0, 0, 1, 0, 0);
+
+}
+
+.properties {
+
+  position: absolute;
+  width: 280px;
+  height: 607px;
+  left: 827px;
+  top: -1px;
+
+  background: linear-gradient(84.39deg, #272727 2.38%, #333333 93.15%);
+  border-radius: 0px 25px 25px 0px;
+
+
+}
+
+.properties__title {
+  position: absolute;
+  width: 213.17px;
+  height: 0px;
+  left: 33px;
+  top: 30px;
+
+  font-family: 'Ek Mukta Light';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15.675px;
+  line-height: 0px;
+  /* or 0% */
+  text-align: center;
+  letter-spacing: 0.25em;
+
+  color: #DEDEDE;
+
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.properties__lines {
+/* lines */
+
+position: absolute;
+left: 80.75px;
+top: 55.05px;
+
+transform: matrix(1, 0, 0, 1, 0, 0);
+
+}
+
+.taskFrame {
+
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 156.75px;
+  height: 172.43px;
+  left: 212.39px;
+  top: 25px;
+  border-radius: 11.7562px;
+
+}
+
+.taskFrame--selected {
   scale:1.05;
   filter: brightness(110%);
 }
 
-.taskFrame_selected .taskFrameBackground {
+.taskFrame-selected .taskFrame__background {
   box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.5);
 }
 
-.taskFrameBackground {
+.taskFrame__background {
   flex: auto;
   position:absolute;
   width: 100%;
@@ -188,79 +411,86 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   z-index: -1;
   border-radius: 15px;
   background-color: #000000;
-  /* transition: transform 0.1s, scale 0.2s; */
-  /* overwritten by js */
   overflow: hidden;
+
+  background: linear-gradient(180deg, #2F2F2F 50%, #222222 100%);
+  border: 0.78375px solid #FB773C;
+  border-radius: 11.7562px;
   perspective: "500px";
-  
-  /* box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5); */
 
 }
 
-.taskTemplate_mouseGradient {
+.taskFrame__mouseGradient {
   position: absolute;
   height: 100%;
   width: 100%;
 }
 
-.taskTemplate_title {
+.taskFrame__title {
 
-  position: relative;
-  width: 200px;
-  height: 20px;
-  left: 0px;
-  top: 12.5px;
+/* TaskTitle */
 
-  font-family: 'Ek Mukta ExtraBold';
+position: absolute;
+width: 156.75px;
+height: 15.68px;
+left: 0px;
+top: 26px;
+
+font-family: 'Ek Mukta Medium';
+font-style: normal;
+font-weight: 500;
+font-size: 19.5938px;
+line-height: 0px;
+/* or 0% */
+align-items: center;
+text-align: center;
+letter-spacing: 0.05em;
+
+color: #FB773C;
+
+
+}
+
+.taskFrame__titleLine {
+
+position: absolute;
+width: 156.75px;
+height: 0px;
+left: 0px;
+top: 50.94px;
+
+border: 0.78375px solid #FB773C;
+
+
+}
+
+.taskFrame__description {
+
+/* TaskDescription */
+
+  position: absolute;
+  width: 141.07px;
+  height: 52.51px;
+  left: 7.84px;
+  top: 62.7px;
+
+  font-family: 'Ek Mukta Regular';
   font-style: normal;
-  font-weight: 800;
-  font-size: 22px;
-  line-height: 0px;
-  align-items: center;
+  font-weight: 400;
+  font-size: 11.7562px;
+  line-height: 12px;
+  /* or 100% */
   text-align: center;
   letter-spacing: 0.05em;
 
-  color: #FFFFFF;
+  color: #FB773C;
 
-
-}
-
-.taskTemplate_titleLine {
-
-  position: static;
-  width: 200px;
-  height: 0px;
-  left: 0px;
-  top: 65px;
-  align-self: center;
-
-  border: 1px solid #FFFFFF;
-
-}
-
-.taskTemplate_description {
-
-  position:relative;
-  width: 180px;
-  height: 67px;
-  left: 10px;
-  top: 10px;
-
-  font-family: 'Ek Mukta Medium';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 15px;
-  text-align: center;
-  letter-spacing: 0.05em;
-
-  color: #FFFFFF;
 
 
 }
 
 
-.taskTemplate_date {
+.taskFrame__date {
 
   position: relative;
   width: 200px;
@@ -280,7 +510,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 }
 
-.taskTemplate_dateLine {
+.taskFrame__dateLine {
 
   position: relative;
   width: 65px;
@@ -292,36 +522,7 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 
 }
 
-.taskAddButton {
-
-flex: auto;
-position:static;
-width: 200px;
-height: 220px;
-left: 8px;
-top: 7px;
-flex: 0 0 auto;
-opacity: 0.35;
-background: linear-gradient(219.57deg, #B3B3B3 50%, #4D4D4D 100%);
-border-radius: 15px;
-transition: all 0.15s;
-border-style: none;
-}
-
-.taskAddButton:hover {
-  /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg); */
-  box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.5);
-  scale: 1.05;
-}
-
-.taskAddButton_image {
-  position: static;
-  width: 50px;
-  height: 50px;
-
-}
-
-.taskFormBlur {
+.taskForm--Blur {
   filter: blur(5px) brightness(0.3);
   margin:0;
   padding:0;
@@ -341,7 +542,7 @@ border-style: none;
   border-radius: 4px;
 }
 
-.taskCreator_title {
+.taskCreator__title {
   /* Add Task: */
 
   position: relative;
@@ -361,9 +562,7 @@ border-style: none;
 
 }
 
-.taskCreator_frameName {
-
-  /* TITLE */
+.taskCreator__frameName {
   
   white-space: nowrap;
   height: 17px;
@@ -372,13 +571,10 @@ border-style: none;
   font-weight: 500;
   font-size: 10px;
   line-height: 17px;
-  /* identical to box height */
   letter-spacing: 0.2em;
   
   color: #000000;
-  
-  
-  /* Inside auto layout */
+
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -386,7 +582,7 @@ border-style: none;
   
 }
 
-.taskCreator_inputFrame::placeholder, .taskCreator_inputFrame {
+.taskCreator__inputFrame::placeholder, .taskCreator_inputFrame {
   /* Task Title */
 
 width: 450px;
@@ -412,7 +608,7 @@ flex-grow: 1;
 }
 
 
-.taskCreator_titleFrame {
+.taskCreator__titleFrame {
   /* Title */
 
   box-sizing: border-box;
@@ -438,7 +634,7 @@ flex-grow: 1;
 
 }
 
-.taskCreator_descFrame {
+.taskCreator__descFrame {
   /* Description */
 
   box-sizing: border-box;
@@ -464,7 +660,7 @@ flex-grow: 1;
 
 }
 
-.taskCreator_deadlineFrame {
+.taskCreator__deadlineFrame {
     /* Deadline */
 
   position: absolute;
@@ -480,7 +676,7 @@ flex-grow: 1;
 
 }
 
-.taskCreator_deadlineTitle {
+.taskCreator__deadlineTitle {
   /* DEADLINE */
 
   position: absolute;
@@ -503,7 +699,7 @@ flex-grow: 1;
 
 }
 
-.taskCreator_deadlineElement {
+.taskCreator__deadlineElement {
 
   box-sizing: border-box;
 
@@ -541,7 +737,7 @@ flex-grow: 1;
   flex: auto;
 }
 
-.taskCreator_saveButton {
+.taskCreator__saveButton {
 
   box-sizing: border-box;
 
@@ -571,7 +767,7 @@ flex-grow: 1;
 
 }
 
-.taskCreatorExitButton {
+.taskCreator__exitButton {
 
   position: absolute;
   width: 10.14px;
