@@ -1,15 +1,14 @@
 
 const taskContainer = document.getElementById("taskContainer")
-// const listBackground = document.getElementById("Background")
 const taskTemplate = document.getElementById("taskTemplate")
 const taskCounter = document.getElementById("taskCounter")
 const addButton = document.getElementById("taskAddButton")
 const creatorTemplate = document.getElementById("creatorTemplate")
+const mainFrame = document.getElementById("mainFrame")
+const bin = document.getElementById("taskBin")
 
 const colors = ["#30C1FF", "#A750FF","#EB3678","#FB773C"]
 let mode = "none"
-
-let currentColor = 0
 
 async function getTasks() {
     const response = await fetch("/tasks")
@@ -23,6 +22,15 @@ async function getTask(id) {
 
 async function saveTask(title,desc,deadline) {
     return await fetch(`/tasks?title=${title}&description=${desc}&deadline=${deadline}`, {method: "POST"})
+}
+
+async function removeTask(id) {
+    const response = await fetch(`/tasks/${id}`, {method:"DELETE"})
+    if (await response) removeTaskUI(id)
+    selectedTasks.splice(selectedTasks.indexOf(findSelectedTaskById(id)),1)
+    updateTaskCount()
+    updateTaskColors()
+    return response.json();
 }
 
 async function updateTaskCount() {
@@ -56,6 +64,7 @@ async function taskCreatorSave(saveButton) {
     const task = await response.json()
     updateTaskCount()
     addTaskUI(task)
+    updateTaskColors()
     leaveTaskCreator(saveButton.parentNode)
 
 }
@@ -90,6 +99,12 @@ function findSelectedTaskById(id) {
 
 function getTaskFrame(id) {
     return document.getElementById(`task-${id}`)
+}
+
+function removeSelectedTasks() {
+    selectedTasks.forEach((task) => {
+        removeTask(task.id)
+    })
 }
 
 function selectTask(task,clearArray) { 
@@ -143,26 +158,40 @@ function formatDate(date) {
     return date.toUTCString().replaceAll(":00 GMT","")
 }
 
-function generateTaskColor() {
-    if (currentColor > colors.length - 1) currentColor = 0
-    const color = colors[currentColor]  
-    currentColor += 1
-    return color
+function updateTaskColors() {
+    let index = 1;
+    for (const element of taskContainer.children) {
+        if (element.id != "taskAddButton") {
+            index < colors.length ? index ++ : index = 1
+            const color = colors[index - 1]
+            const background = element.children["background"]
+            const titleElement = background.children["title"]
+            const descElement = background.children["description"]
+            const dateElement = background.children["deadline"]
+            const titleLine = background.children["titleLine"]
+            const dateLine = background.children["dateLine"]
+    
+            titleElement.style.color = color
+            background.style.borderColor = color
+            titleLine.style.borderColor = color
+            dateLine.style.borderColor = color
+            dateElement.style.color = color
+            descElement.style.color = color
+        }
+    }
 }
 
 function enterTaskCreator() {
     if (mode == "none") {
         mode = "taskCreator"
-        // listBackground.classList.add("taskFormBlur")
         const taskCreator = creatorTemplate.content.cloneNode(true)
-        document.body.appendChild(taskCreator)
+        mainFrame.appendChild(taskCreator)
     }
 
 }
 
 function leaveTaskCreator(button) {
     const creator = button.parentNode
-    // listBackground.classList.remove("taskFormBlur")
     creator.remove()
     mode = "none"
 }
@@ -180,10 +209,19 @@ function reactToMouse(event,main,interaction) {
             if (gradient.style.display != "block") gradient.style.display = "block" 
             if (background.style.transition != "transform 0.1s") background.style.transition = "transform 0.1s"
 
+            const color = background.style.borderColor
+            const transformedColor = color
+            .replace("rgb(","")
+            .replace(")","")
+            .split(",")
+            const r = transformedColor[0]
+            const g = transformedColor[1]
+            const b = transformedColor[2]
+
             const gradientRect = gradient.getBoundingClientRect()
             const x2 = event.clientX - (gradientRect.left)
             const y2 = event.clientY - (gradientRect.top)
-            gradient.style.background = `radial-gradient(at ${x2}px ${y2}px,rgb(0,0,0,15%), rgb(0,0,0, 0%) 25%)`;
+            gradient.style.background = `radial-gradient(at ${x2}px ${y2}px,rgb(${r},${g},${b},5%), rgb(0,0,0, 0%) 50%)`;
             break
 
         case "leaving":
@@ -196,7 +234,6 @@ function reactToMouse(event,main,interaction) {
 }
 
 function addTaskUI(task) {
-    const color = generateTaskColor()
     const clonedTemplate = taskTemplate.content.cloneNode(true)
     const frame = clonedTemplate.children["frame"]
     frame.id = `task-${task.id}`
@@ -204,21 +241,12 @@ function addTaskUI(task) {
     const titleElement = background.children["title"]
     const descElement = background.children["description"]
     const dateElement = background.children["deadline"]
-    const titleLine = background.children["titleLine"]
-    const dateLine = background.children["dateLine"]
     titleElement.innerHTML = task.title 
     descElement.innerHTML = task.description
 
     const date = new Date(task.deadline)
     dateElement.innerHTML = formatDate(date)
     dateElement.style.fontSize = "10px"
-
-    titleElement.style.color = color
-    background.style.borderColor = color
-    titleLine.style.borderColor = color
-    dateLine.style.borderColor = color
-    dateElement.style.color = color
-    descElement.style.color = color
     taskContainer.appendChild(clonedTemplate)
 
     frame.addEventListener("mousemove", (e) => {reactToMouse(e,frame,"moving")});
@@ -226,8 +254,14 @@ function addTaskUI(task) {
     frame.addEventListener("click", (e) => {taskFrameClicked(e,frame)})
 }
 
+function removeTaskUI(id) {
+    const frame = getTaskFrame(id)
+    if (frame) frame.remove()
+}
+
+bin.addEventListener("click", removeSelectedTasks)
 addButton.addEventListener("click", enterTaskCreator);
 taskContainer.addEventListener("click", (e) => {taskContainerClicked(e,taskContainer)})
 
-updateTaskList()
+updateTaskList().then(updateTaskColors)
 updateTaskCount()

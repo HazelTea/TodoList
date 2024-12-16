@@ -59,6 +59,7 @@ public class TaskController {
 
         } catch (Exception e) {
             System.out.println("No task with a matching id of: " + id.toString() + " was found!");
+            return null;
         }
         return taskList.findAll();
 
