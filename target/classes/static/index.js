@@ -7,6 +7,17 @@ const creatorTemplate = document.getElementById("creatorTemplate")
 const mainFrame = document.getElementById("mainFrame")
 const bin = document.getElementById("taskBin")
 
+const properties = document.getElementById("propertiesTab")
+const propHeader = document.getElementById("properties_header")
+const propTitle = document.getElementById("properties_title")
+const propDesc = document.getElementById("properties_desc")
+
+const propMinute = document.getElementById("properties_deadline_minute")
+const propHour = document.getElementById("properties_deadline_hour")
+const propMonth = document.getElementById("properties_deadline_month")
+const propDay = document.getElementById("properties_deadline_day")
+const propYear = document.getElementById("properties_deadline_year")
+
 const colors = ["#30C1FF", "#A750FF","#EB3678","#FB773C"]
 let mode = "none"
 
@@ -81,6 +92,10 @@ async function taskFrameClicked(e,taskFrame) {
 
 }
 
+async function updateTask(task,getTask) {
+
+}
+
 function taskContainerClicked(e,container) {
     if (e.target == container) {
         clearSelectedTasks()
@@ -102,9 +117,44 @@ function getTaskFrame(id) {
 }
 
 function removeSelectedTasks() {
+    leaveProperties()
     selectedTasks.forEach((task) => {
         removeTask(task.id)
     })
+}
+
+function removePropFilter() {
+    properties.classList.remove("properties--unselected")
+}
+
+function addPropFilter() {
+    properties.classList.add("properties--unselected")
+}
+
+
+function enterProperties() {
+     
+    if (selectedTasks.length > 0) {
+        console.log("deez")
+        const task = selectedTasks[0]
+        propHeader.innerHTML = `${task.title} (id:${task.id})`
+        propTitle.value = task.title
+        propDesc.value = task.description
+        const deadline = new Date(task.deadline)
+        propHour.value = deadline.getHours()
+        propDay.value = deadline.getDay()
+        propMonth.value = deadline.getMonth()
+        propYear.value = deadline.getFullYear()    
+        properties.classList.contains("properties--unselected") ? removePropFilter() : addPropFilter()
+        setTimeout(() => {if (properties.classList.contains("properties--unselected") && selectedTasks.length > 0) removePropFilter()},125)
+    } else if (selectedTasks.length > 1) {
+        return
+    }
+
+}
+
+function leaveProperties() {
+    addPropFilter()
 }
 
 function selectTask(task,clearArray) { 
@@ -112,18 +162,21 @@ function selectTask(task,clearArray) {
     const foundTask = findSelectedTaskById(task.id)
     const taskFrame = document.getElementById(`task-${task.id}`)
     if (!foundTask) {
+        if (clearArray) clearSelectedTasks(task.id)
         selectedTasks.push(task)
         addSelectedTaskStyle(taskFrame)
-        if (clearArray) clearSelectedTasks(task.id)
+        enterProperties()
     } else {
         if (clearArray) {
             if (length > 1) {
                 clearSelectedTasks(task.id)
             } else {
                 deselectTask(task)
+                leaveProperties()
             }
         } else {
             deselectTask(task)
+            if (selectedTasks.length <= 0) leaveProperties();
         }
 
     }
@@ -139,11 +192,12 @@ function deselectTask(task) {
 }
 
 function clearSelectedTasks(exceptionId) {
-    const task = findSelectedTaskById(exceptionId)
+    const exceptionTask = findSelectedTaskById(exceptionId)
     selectedTasks.forEach((task) =>  {
-        if (task.id != exceptionId) removeSelectedTaskStyle(getTaskFrame(task.id))
+        if (task.id != exceptionId) deselectTask(task)
     })
-    task ? selectedTasks = [task] : selectedTasks = []
+    exceptionTask ? selectedTasks = [exceptionTask] : selectedTasks = []; 
+    if (!exceptionId) leaveProperties();
 }
 
 function addSelectedTaskStyle(taskFrame) {
@@ -241,13 +295,14 @@ function addTaskUI(task) {
     const titleElement = background.children["title"]
     const descElement = background.children["description"]
     const dateElement = background.children["deadline"]
-    titleElement.innerHTML = task.title 
-    descElement.innerHTML = task.description
 
     const date = new Date(task.deadline)
     dateElement.innerHTML = formatDate(date)
+    titleElement.innerHTML = task.title 
+    descElement.innerHTML = task.description
     dateElement.style.fontSize = "10px"
     taskContainer.appendChild(clonedTemplate)
+    console.log(date.getMonth())
 
     frame.addEventListener("mousemove", (e) => {reactToMouse(e,frame,"moving")});
     frame.addEventListener("mouseleave", (e) => {reactToMouse(e,frame,"leaving")});

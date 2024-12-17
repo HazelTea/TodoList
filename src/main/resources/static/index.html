@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <title> Todo List</title>
   </head>
   <body>
     <template id="taskTemplate">
@@ -76,7 +78,18 @@
       <div class="todo__background">
           <div class="todo__title">All Tasks</div>
           <div id="taskCounter" class="todo__task__counter">4</div>
-          <svg id="taskBin" class="todo__bin" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 4.98C15.67 4.65 12.32 4.48 8.98 4.48C7 4.48 5.02 4.58 3.04 4.78L1 4.98M6.5 3.97L6.72 2.66C6.88 1.71 7 1 8.69 1H11.31C13 1 13.13 1.75 13.28 2.67L13.5 3.97M16.85 8.14L16.2 18.21C16.09 19.78 16 21 13.21 21H6.79C4 21 3.91 19.78 3.8 18.21L3.15 8.14M8.33 15.5H11.66M7.5 11.5H12.5" stroke="#FF3535" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg id="taskBin" class="todo__bin" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 4.98C17.3 4.65 13.5778 4.48 9.86667 4.48C7.66667 4.48 5.46667 4.58 3.26667 4.78L1 4.98M7.11111 3.97L7.35556 2.66C7.53333 1.71 7.66667 1 9.54444 1H12.4556C14.3333 1 14.4778 1.75 14.6444 2.67L14.8889 3.97M18.6111 8.14L17.8889 18.21C17.7667 19.78 17.6667 21 14.5667 21H7.43333C4.33333 21 4.23333 19.78 4.11111 18.21L3.38889 8.14M9.14444 15.5H12.8444M8.22222 11.5H13.7778" stroke="url(#paint0_linear_124_372)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+            <linearGradient id="paint0_linear_124_372" x1="21.1389" y1="1" x2="1.63985" y2="21.8018" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF5930"/>
+            <stop offset="0.5" stop-color="#EB3678"/>
+            <stop offset="0.75" stop-color="#A750FF"/>
+            <stop offset="1" stop-color="#30C1FF"/>
+            </linearGradient>
+            </defs>
+          </svg>
+            
           <div id="taskContainer" class="todo__task__container">
             <button id="taskAddButton" class="todo__task__container__addButton"> 
               <svg class="todo__task__container__addButton__sign" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,12 +100,58 @@
 
           </div>
       </div>
-      <div class="properties">
+      <div class="properties properties--unselected" id="propertiesTab">
         <div class="properties__title">Properties</div>
+
         <svg class="properties__lines" width="119" height="10" viewBox="0 0 119 10" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0.750305 1.05294C46.6613 1.05294 72.4018 1.05294 118.313 1.05294" stroke="#949494" stroke-width="0.78375" stroke-linecap="round"/>
           <path d="M20.1966 9.05294H98.5716" stroke="#949494" stroke-width="0.78375" stroke-linecap="round"/>
-          </svg>          
+        </svg>
+
+        <form class="properties-frame">
+          <div class="properties__task__header__text" id="properties_header"> TASKNAME (id):</div>
+          <div class="properties__task__list">
+
+            <div class="properties__task__mainFrame">
+              <div class="properties__task__name">Title</div>
+              <input type="text" class="properties__task__inputFrame" id="properties_title" placeholder="Empty" autocapitalize="on"></input>
+            </div>
+
+            <div class="properties__task__mainFrame">
+              <div class="properties__task__name">Description</div>
+              <input type="text" class="properties__task__inputFrame" id="properties_desc" placeholder="Empty"></input>
+            </div>
+
+            <div class="properties__task__deadline__frame">
+              <div class="properties__task__deadline_upperText"> Deadline</div>
+              <input type="text" class="properties__task__inputFrame" id="properties_deadline_minute" placeholder="Minute"></input>
+              <input type="text" class="properties__task__inputFrame" id="properties_deadline_hour" placeholder="Hour"></input>
+              <input type="text" class="properties__task__inputFrame" id="properties_deadline_month" placeholder="Month"></input>
+              <input type="text" class="properties__task__inputFrame" id="properties_deadline_day" placeholder="Day"></input>
+              <input type="text" class="properties__task__inputFrame" id="properties_deadline_year" placeholder="Year"></input>
+            </div>
+
+            <div class="properties__task__tagsFrame">
+              <div class="properties__task__tagsHeader">Tags</div>
+              <svg class="properties__task__tagAdder" id="tagAdder" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="5.78125" y1="1.36598e-08" x2="5.78125" y2="11.7188" stroke="url(#paint0_linear_169_57)" stroke-width="0.625"/>
+                <line y1="5.9375" x2="11.7188" y2="5.9375" stroke="url(#paint1_linear_169_57)" stroke-width="0.625"/>
+                <defs>
+                <linearGradient id="paint0_linear_169_57" x1="4.96875" y1="-2.18557e-08" x2="4.96875" y2="11.7187" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#AFAFAF"/>
+                <stop offset="1" stop-color="#939393"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_169_57" x1="0" y1="6.75" x2="11.7188" y2="6.75" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#AFAFAF"/>
+                <stop offset="1" stop-color="#939393"/>
+                </linearGradient>
+                </defs>
+              </svg>
+              <div class="properties__task__tagList">
+              </div>
+            </div>
+          </form>        
+        </div>
       </div>
     </div>
       <script src="index.js"></script>
