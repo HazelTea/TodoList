@@ -141,10 +141,11 @@ function enterProperties() {
         propTitle.value = task.title
         propDesc.value = task.description
         const deadline = new Date(task.deadline)
-        propHour.value = deadline.getHours()
-        propDay.value = deadline.getDay()
-        propMonth.value = deadline.getMonth()
-        propYear.value = deadline.getFullYear()    
+        propMinute.value = ("0" + deadline.getMinutes()).slice(-2);
+        propHour.value = ("0" + deadline.getHours()).slice(-2);
+        propDay.value = ("0" + deadline.getDay()).slice(-2);
+        propMonth.value = ("0" + deadline.getMonth()).slice(-2);
+        propYear.value = deadline.getFullYear()
         properties.classList.contains("properties--unselected") ? removePropFilter() : addPropFilter()
         setTimeout(() => {if (properties.classList.contains("properties--unselected") && selectedTasks.length > 0) removePropFilter()},125)
     } else if (selectedTasks.length > 1) {

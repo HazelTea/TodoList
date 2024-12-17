@@ -114,8 +114,18 @@ transform: matrix(1, 0, 0, 1, 0, 0);
   top: 18.96%;
   bottom: 77.75%;
   cursor: pointer;
+  transition: scale 0.1s, filter 0.05s;
 
 
+}
+
+.todo__bin:hover {
+  scale: 1.2;
+}
+
+@keyframes example {
+  from {background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);}
+  to {background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 100%, #FFFFFF 100%);}
 }
 
 .todo__task__counter {
@@ -240,8 +250,6 @@ letter-spacing: 0.25em;
 color: #DEDEDE;
 
 transform: matrix(1, 0, 0, 1, 0, 0);
-
-
 
 }
 
