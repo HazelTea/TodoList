@@ -12,7 +12,7 @@
         <div name="background" class="taskFrame__background" > 
           <canvas class="taskFrame__mouseGradient" name="mouseGradient"></canvas>         
           <div name="title" class="taskFrame__title">LOREM IPSUM</div>
-          <div name = "titleLine" class="taskFrame__titleLine"></div>
+          <div name="titleLine" class="taskFrame__titleLine"></div>
           <div name="description" class="taskFrame__description">Lorem ipsum dolor sit amet consectetur adipscicin elit.</div>
           <div name="deadline" class="taskFrame__date"> 01/01/1970</div>
           <div name="dateLine" class="taskFrame__dateLine"></div>
@@ -108,27 +108,28 @@
           <path d="M20.1966 9.05294H98.5716" stroke="#949494" stroke-width="0.78375" stroke-linecap="round"/>
         </svg>
 
-        <form class="properties-frame">
+        <form name="properties" class="properties-frame" id="propertiesForm">
+          <button type="button" class="properties__editButton", id="propEdit"><img src="images/edit.png"></button>
           <div class="properties__task__header__text" id="properties_header"> TASKNAME (id):</div>
           <div class="properties__task__list">
 
             <div class="properties__task__mainFrame">
               <div class="properties__task__name">Title</div>
-              <input type="text" class="properties__task__inputFrame" id="properties_title" placeholder="Empty" autocapitalize="on"></input>
+              <input name="title" type="text" class="properties__task__inputFrame" placeholder="Empty" style="text-transform: uppercase;"></input>
             </div>
 
             <div class="properties__task__mainFrame">
               <div class="properties__task__name">Description</div>
-              <input type="text" class="properties__task__inputFrame" id="properties_desc" placeholder="Empty"></input>
+              <input name="desc" type="text" class="properties__task__inputFrame" id="properties_desc" placeholder="Empty"></input>
             </div>
 
             <div class="properties__task__deadline__frame">
               <div class="properties__task__deadline_upperText"> Deadline</div>
-              <input type="text" class="properties__task__inputFrame" id="properties_deadline_minute" placeholder="Minute"></input>
-              <input type="text" class="properties__task__inputFrame" id="properties_deadline_hour" placeholder="Hour"></input>
-              <input type="text" class="properties__task__inputFrame" id="properties_deadline_month" placeholder="Month"></input>
-              <input type="text" class="properties__task__inputFrame" id="properties_deadline_day" placeholder="Day"></input>
-              <input type="text" class="properties__task__inputFrame" id="properties_deadline_year" placeholder="Year"></input>
+              <input name="minute" type="text" class="properties__task__inputFrame" placeholder="Minute"></input>
+              <input name="hour" type="text" class="properties__task__inputFrame" placeholder="Hour"></input>
+              <input name="day" type="text" class="properties__task__inputFrame" placeholder="Day"></input>
+              <input name="month" type="text" class="properties__task__inputFrame" placeholder="Month"></input>
+              <input name="year" type="text" class="properties__task__inputFrame" placeholder="Year"></input>
             </div>
 
             <div class="properties__task__tagsFrame">

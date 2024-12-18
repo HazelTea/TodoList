@@ -5,8 +5,9 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,7 +67,7 @@ public class TaskController {
     }
 
     @PatchMapping("/tasks/{id}/edit")
-    public @ResponseBody Iterable<Task> editTask(@PathVariable("id") Integer id,
+    public @ResponseBody Task editTask(@PathVariable("id") Integer id,
             @RequestParam Map<String, String> params) {
         Task task = getTaskById(id);
         String[] keyArray = params.keySet().toArray(String[]::new);
@@ -89,6 +90,7 @@ public class TaskController {
                     break;
             }
         }
-        return taskList.findAll();
+        taskList.save(task);
+        return task;
     }
 }

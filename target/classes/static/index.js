@@ -9,14 +9,8 @@ const bin = document.getElementById("taskBin")
 
 const properties = document.getElementById("propertiesTab")
 const propHeader = document.getElementById("properties_header")
-const propTitle = document.getElementById("properties_title")
-const propDesc = document.getElementById("properties_desc")
 
-const propMinute = document.getElementById("properties_deadline_minute")
-const propHour = document.getElementById("properties_deadline_hour")
-const propMonth = document.getElementById("properties_deadline_month")
-const propDay = document.getElementById("properties_deadline_day")
-const propYear = document.getElementById("properties_deadline_year")
+const editButton = document.getElementById("propEdit")
 
 const colors = ["#30C1FF", "#A750FF","#EB3678","#FB773C"]
 let mode = "none"
@@ -52,8 +46,34 @@ async function updateTaskCount() {
 async function updateTaskList() {
     const tasks = await getTasks()
     tasks.forEach(task => {
-        addTaskUI(task)
+        createTaskUI(task)
     });
+}
+
+async function updateTask(task) {
+    const form = document.forms["properties"]
+    const date = new Date()
+    const title = form["title"].value.toUpperCase()
+    const desc = form["desc"].value
+    // const minute = clamp(Number(form["minute"].value),0,59)
+    // const hour = clamp(Number(form["hour"].value),0,23)
+    // const day = clamp(Number)
+    // const month = clamp(Number(form["month"].value),0,12)
+    // const year =  form["year"].value
+    // date.setFullYear(year,month,)
+    try {
+        const response = await fetch(`/tasks/${task.id}/edit?title=${title}&description=${desc}&deadline=${date}`, {method:"PATCH"})
+        if (response) {
+            const frame = getTaskFrame(task.id)
+            const background = frame.children["background"]
+            background.children["title"].innerHTML = title
+            background.children["description"].innerHTML = desc
+            // background.children["deadline"].innerHTML = formatDate(date)
+        }
+    } catch (error) {
+        console.error(`Incorrect request: ${error}`)
+    } 
+    return false
 }
 
 
@@ -68,15 +88,16 @@ async function taskCreatorSave(saveButton) {
     const hour = Number(form.hour.value) || 0
     const minute = Number(form.minute.value) || 0
     const date = new Date()
-    date.setFullYear(year,month,day)
-    date.setHours(hour,minute,0)
+    date.setUTCFullYear(year,month,day)
+    date.setUTCHours(hour,minute,0)
 
     const response = await saveTask(title,desc,date)
     const task = await response.json()
     updateTaskCount()
-    addTaskUI(task)
+    createTaskUI(task)
     updateTaskColors()
     leaveTaskCreator(saveButton.parentNode)
+    selectTask(task,true)
 
 }
 
@@ -92,8 +113,12 @@ async function taskFrameClicked(e,taskFrame) {
 
 }
 
-async function updateTask(task,getTask) {
-
+function clamp(num, min, max) {
+    return num <= min 
+      ? min 
+      : num >= max 
+        ? max 
+        : num
 }
 
 function taskContainerClicked(e,container) {
@@ -133,24 +158,19 @@ function addPropFilter() {
 
 
 function enterProperties() {
-     
-    if (selectedTasks.length > 0) {
-        console.log("deez")
-        const task = selectedTasks[0]
-        propHeader.innerHTML = `${task.title} (id:${task.id})`
-        propTitle.value = task.title
-        propDesc.value = task.description
-        const deadline = new Date(task.deadline)
-        propMinute.value = ("0" + deadline.getMinutes()).slice(-2);
-        propHour.value = ("0" + deadline.getHours()).slice(-2);
-        propDay.value = ("0" + deadline.getDay()).slice(-2);
-        propMonth.value = ("0" + deadline.getMonth()).slice(-2);
-        propYear.value = deadline.getFullYear()
-        properties.classList.contains("properties--unselected") ? removePropFilter() : addPropFilter()
-        setTimeout(() => {if (properties.classList.contains("properties--unselected") && selectedTasks.length > 0) removePropFilter()},125)
-    } else if (selectedTasks.length > 1) {
-        return
-    }
+    const task = selectedTasks[0]
+    const form = document.forms["properties"]
+    const deadline = new Date(task.deadline)
+    propHeader.innerHTML = `${task.title} (id:${task.id})`
+    form["title"].value = task.title
+    form["desc"].value = task.description
+    form["minute"].value = ("0" + deadline.getDay()).slice(-2)
+    form["hour"].value = ("0" + deadline.getHours()).slice(-2)
+    form["day"].value = ("0" + (deadline.getDay() + 1)).slice(-2);
+    form["month"].value = ("0" + deadline.getMonth()).slice(-2);
+    form["year"].value = deadline.getFullYear()
+    properties.classList.contains("properties--unselected") ? removePropFilter() : addPropFilter()
+    setTimeout(() => {if (properties.classList.contains("properties--unselected") && selectedTasks.length > 0) removePropFilter()},125)
 
 }
 
@@ -181,7 +201,6 @@ function selectTask(task,clearArray) {
         }
 
     }
-
 }
 
 function deselectTask(task) {
@@ -195,10 +214,11 @@ function deselectTask(task) {
 function clearSelectedTasks(exceptionId) {
     const exceptionTask = findSelectedTaskById(exceptionId)
     selectedTasks.forEach((task) =>  {
-        if (task.id != exceptionId) deselectTask(task)
+        const frame = getTaskFrame(task.id)
+        if (task.id != exceptionId) {removeSelectedTaskStyle(frame)}
     })
     exceptionTask ? selectedTasks = [exceptionTask] : selectedTasks = []; 
-    if (!exceptionId) leaveProperties();
+    if (!exceptionTask) leaveProperties();
 }
 
 function addSelectedTaskStyle(taskFrame) {
@@ -288,7 +308,7 @@ function reactToMouse(event,main,interaction) {
 
 }
 
-function addTaskUI(task) {
+function createTaskUI(task) {
     const clonedTemplate = taskTemplate.content.cloneNode(true)
     const frame = clonedTemplate.children["frame"]
     frame.id = `task-${task.id}`
@@ -303,7 +323,6 @@ function addTaskUI(task) {
     descElement.innerHTML = task.description
     dateElement.style.fontSize = "10px"
     taskContainer.appendChild(clonedTemplate)
-    console.log(date.getMonth())
 
     frame.addEventListener("mousemove", (e) => {reactToMouse(e,frame,"moving")});
     frame.addEventListener("mouseleave", (e) => {reactToMouse(e,frame,"leaving")});
@@ -317,7 +336,8 @@ function removeTaskUI(id) {
 
 bin.addEventListener("click", removeSelectedTasks)
 addButton.addEventListener("click", enterTaskCreator);
-taskContainer.addEventListener("click", (e) => {taskContainerClicked(e,taskContainer)})
+taskContainer.addEventListener("click", (e) => taskContainerClicked(e,taskContainer))
+editButton.addEventListener("click", (e) => {updateTask(selectedTasks[0])})
 
 updateTaskList().then(updateTaskColors)
 updateTaskCount()
